@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Discovery - Digital Guidance Platform</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-elevation-2 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">CareerGuide</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Profile</a>
+                        <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Quiz</a>
+                        <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Careers</a>
+                        <a href="college_discovery.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Colleges</a>
+                        <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Timeline</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-text-secondary hover:text-text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Careers</a>
+                <a href="college_discovery.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Colleges</a>
+                <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+                        Discover Government Colleges
+                    </h2>
+                    <p class="text-text-secondary">
+                        Find the perfect college based on your preferences and requirements
+                    </p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button id="location-btn" class="btn-outline text-sm px-4 py-2">
+                        <i class="fas fa-location-arrow mr-2"></i>
+                        Use My Location
+                    </button>
+                    <div class="flex bg-surface rounded-lg shadow-elevation-1 p-1">
+                        <button id="list-view-btn" class="px-3 py-2 rounded-md text-sm font-medium bg-primary text-white transition-smooth">
+                            <i class="fas fa-list mr-1"></i> List
+                        </button>
+                        <button id="map-view-btn" class="px-3 py-2 rounded-md text-sm font-medium text-text-secondary hover:text-text-primary transition-smooth">
+                            <i class="fas fa-map mr-1"></i> Map
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="mb-6">
+            <div class="bg-surface rounded-lg shadow-elevation-1 p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+                    <!-- Search Bar -->
+                    <div class="flex-1">
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Search colleges by name or location..." class="input-field pl-10 pr-4" />
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-text-secondary"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Toggle (Mobile) -->
+                    <button id="filter-toggle" class="lg:hidden btn-outline text-sm px-4 py-2">
+                        <i class="fas fa-filter mr-2"></i>
+                        Filters
+                        <span id="filter-count" class="ml-2 bg-primary text-white text-xs px-2 py-1 rounded-full hidden">0</span>
+                    </button>
+
+                    <!-- Desktop Filters -->
+                    <div id="desktop-filters" class="hidden lg:flex lg:items-center lg:space-x-4">
+                        <select id="stream-filter" class="input-field text-sm">
+                            <option value>All Streams</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="medical">Medical</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="arts">Arts</option>
+                            <option value="science">Science</option>
+                        </select>
+
+                        <select id="city-filter" class="input-field text-sm">
+                            <option value>All Cities</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="kolkata">Kolkata</option>
+                            <option value="hyderabad">Hyderabad</option>
+                        </select>
+
+                        <select id="hostel-filter" class="input-field text-sm">
+                            <option value>Hostel Preference</option>
+                            <option value="available">Available</option>
+                            <option value="not-required">Not Required</option>
+                        </select>
+
+                        <input type="number" id="cutoff-filter" placeholder="Min Cutoff %" class="input-field text-sm w-32" min="0" max="100" />
+
+                        <button id="clear-filters" class="text-text-secondary hover:text-accent text-sm">
+                            <i class="fas fa-times mr-1"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Filter Panel -->
+                <div id="mobile-filters" class="lg:hidden hidden mt-4 pt-4 border-t border-border">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <select id="mobile-stream-filter" class="input-field text-sm">
+                            <option value>All Streams</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="medical">Medical</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="arts">Arts</option>
+                            <option value="science">Science</option>
+                        </select>
+
+                        <select id="mobile-city-filter" class="input-field text-sm">
+                            <option value>All Cities</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="kolkata">Kolkata</option>
+                            <option value="hyderabad">Hyderabad</option>
+                        </select>
+
+                        <select id="mobile-hostel-filter" class="input-field text-sm">
+                            <option value>Hostel Preference</option>
+                            <option value="available">Available</option>
+                            <option value="not-required">Not Required</option>
+                        </select>
+
+                        <input type="number" id="mobile-cutoff-filter" placeholder="Min Cutoff %" class="input-field text-sm" min="0" max="100" />
+                    </div>
+                    <div class="flex justify-between mt-4">
+                        <button id="mobile-clear-filters" class="text-text-secondary hover:text-accent text-sm">
+                            <i class="fas fa-times mr-1"></i> Clear All
+                        </button>
+                        <button id="apply-filters" class="btn-primary text-sm px-4 py-2">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Summary -->
+        <section class="mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <p id="results-count" class="text-text-secondary">
+                        Showing <span class="font-medium text-text-primary">12</span> colleges
+                    </p>
+                    <div id="location-status" class="hidden flex items-center text-sm text-secondary">
+                        <i class="fas fa-map-marker-alt mr-1"></i>
+                        <span>Location detected</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label for="sort-select" class="text-sm text-text-secondary">Sort by:</label>
+                    <select id="sort-select" class="input-field text-sm">
+                        <option value="distance">Distance</option>
+                        <option value="name">Name</option>
+                        <option value="cutoff">Cutoff</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- College List View -->
+        <section id="list-view" class="space-y-6">
+            <!-- College Card 1 -->
+            <div class="college-card card hover:shadow-elevation-3 transition-smooth" data-college-id="1">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <!-- College Image -->
+                    <div class="lg:w-48 lg:flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Delhi Technological University" class="w-full h-48 lg:h-32 object-cover rounded-lg" onerror="this.src='https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=400'; this.onerror=null;" />
+                    </div>
+
+                    <!-- College Info -->
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-semibold text-text-primary">Delhi Technological University</h3>
+                                    <button class="favorite-btn text-text-secondary hover:text-accent transition-smooth ml-2" data-college-id="1">
+                                        <i class="far fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center text-text-secondary mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    <span>Delhi, India</span>
+                                    <span class="mx-2">•</span>
+                                    <span class="distance-info">2.5 km away</span>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-primary-100 text-primary text-xs px-2 py-1 rounded-full">Engineering</span>
+                                    <span class="bg-secondary-100 text-secondary text-xs px-2 py-1 rounded-full">Technology</span>
+                                    <span class="bg-warning/20 text-warning text-xs px-2 py-1 rounded-full">Computer Science</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Cutoff:</span>
+                                        <span class="font-medium text-text-primary ml-1">85%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Hostel:</span>
+                                        <span class="font-medium text-secondary ml-1">Available</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Rating:</span>
+                                        <div class="flex items-center ml-1">
+                                            <span class="font-medium text-text-primary">4.2</span>
+                                            <div class="flex ml-1">
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="far fa-star text-warning text-xs"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Fees:</span>
+                                        <span class="font-medium text-text-primary ml-1">₹2.5L/year</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <button class="view-details-btn btn-outline text-sm px-4 py-2" data-college-id="1">
+                                    View Details
+                                </button>
+                                <button class="btn-primary text-sm px-4 py-2">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- College Card 2 -->
+            <div class="college-card card hover:shadow-elevation-3 transition-smooth" data-college-id="2">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <!-- College Image -->
+                    <div class="lg:w-48 lg:flex-shrink-0">
+                        <img src="https://images.pexels.com/photos/1454360/pexels-photo-1454360.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Indian Institute of Science" class="w-full h-48 lg:h-32 object-cover rounded-lg" onerror="this.src='https://images.pixabay.com/photo/2017/05/09/21/49/graduation-2299696_960_720.jpg'; this.onerror=null;" />
+                    </div>
+
+                    <!-- College Info -->
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-semibold text-text-primary">Indian Institute of Science</h3>
+                                    <button class="favorite-btn text-text-secondary hover:text-accent transition-smooth ml-2" data-college-id="2">
+                                        <i class="far fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center text-text-secondary mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    <span>Bangalore, Karnataka</span>
+                                    <span class="mx-2">•</span>
+                                    <span class="distance-info">450 km away</span>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-primary-100 text-primary text-xs px-2 py-1 rounded-full">Science</span>
+                                    <span class="bg-secondary-100 text-secondary text-xs px-2 py-1 rounded-full">Research</span>
+                                    <span class="bg-warning/20 text-warning text-xs px-2 py-1 rounded-full">Physics</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Cutoff:</span>
+                                        <span class="font-medium text-text-primary ml-1">95%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Hostel:</span>
+                                        <span class="font-medium text-secondary ml-1">Available</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Rating:</span>
+                                        <div class="flex items-center ml-1">
+                                            <span class="font-medium text-text-primary">4.8</span>
+                                            <div class="flex ml-1">
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Fees:</span>
+                                        <span class="font-medium text-text-primary ml-1">₹1.8L/year</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <button class="view-details-btn btn-outline text-sm px-4 py-2" data-college-id="2">
+                                    View Details
+                                </button>
+                                <button class="btn-primary text-sm px-4 py-2">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- College Card 3 -->
+            <div class="college-card card hover:shadow-elevation-3 transition-smooth" data-college-id="3">
+                <div class="flex flex-col lg:flex-row lg:items-start gap-6">
+                    <!-- College Image -->
+                    <div class="lg:w-48 lg:flex-shrink-0">
+                        <img src="https://images.pixabay.com/photo/2016/07/07/16/46/dice-1502706_960_720.jpg" alt="All India Institute of Medical Sciences" class="w-full h-48 lg:h-32 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=400&auto=format&fit=crop'; this.onerror=null;" />
+                    </div>
+
+                    <!-- College Info -->
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-semibold text-text-primary">AIIMS Delhi</h3>
+                                    <button class="favorite-btn text-accent transition-smooth ml-2" data-college-id="3">
+                                        <i class="fas fa-heart text-xl"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center text-text-secondary mb-3">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    <span>New Delhi, India</span>
+                                    <span class="mx-2">•</span>
+                                    <span class="distance-info">5.2 km away</span>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-primary-100 text-primary text-xs px-2 py-1 rounded-full">Medical</span>
+                                    <span class="bg-secondary-100 text-secondary text-xs px-2 py-1 rounded-full">Healthcare</span>
+                                    <span class="bg-warning/20 text-warning text-xs px-2 py-1 rounded-full">MBBS</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Cutoff:</span>
+                                        <span class="font-medium text-text-primary ml-1">99%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Hostel:</span>
+                                        <span class="font-medium text-secondary ml-1">Available</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Rating:</span>
+                                        <div class="flex items-center ml-1">
+                                            <span class="font-medium text-text-primary">4.9</span>
+                                            <div class="flex ml-1">
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                                <i class="fas fa-star text-warning text-xs"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Fees:</span>
+                                        <span class="font-medium text-text-primary ml-1">₹5.8K/year</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <button class="view-details-btn btn-outline text-sm px-4 py-2" data-college-id="3">
+                                    View Details
+                                </button>
+                                <button class="btn-primary text-sm px-4 py-2">
+                                    Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map View -->
+        <section id="map-view" class="hidden">
+            <div class="bg-surface rounded-lg shadow-elevation-2 overflow-hidden">
+                <!-- Map Container -->
+                <div class="relative h-96 lg:h-[500px] bg-gradient-to-br from-primary-50 to-secondary-50">
+                    <!-- Map Placeholder -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-map text-4xl text-primary mb-4"></i>
+                            <h3 class="text-lg font-medium text-text-primary mb-2">Interactive Map View</h3>
+                            <p class="text-text-secondary">College locations with distance indicators</p>
+                        </div>
+                    </div>
+
+                    <!-- College Markers -->
+                    <div class="absolute top-20 left-20">
+                        <button class="map-marker bg-primary text-white p-2 rounded-full shadow-elevation-2 hover:shadow-elevation-3 transition-smooth" data-college-id="1">
+                            <i class="fas fa-university"></i>
+                        </button>
+                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-surface px-2 py-1 rounded shadow-elevation-1 text-xs whitespace-nowrap">
+                            DTU - 2.5km
+                        </div>
+                    </div>
+
+                    <div class="absolute top-32 right-32">
+                        <button class="map-marker bg-secondary text-white p-2 rounded-full shadow-elevation-2 hover:shadow-elevation-3 transition-smooth" data-college-id="2">
+                            <i class="fas fa-university"></i>
+                        </button>
+                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-surface px-2 py-1 rounded shadow-elevation-1 text-xs whitespace-nowrap">
+                            IISc - 450km
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-20 left-1/3">
+                        <button class="map-marker bg-accent text-white p-2 rounded-full shadow-elevation-2 hover:shadow-elevation-3 transition-smooth" data-college-id="3">
+                            <i class="fas fa-university"></i>
+                        </button>
+                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-surface px-2 py-1 rounded shadow-elevation-1 text-xs whitespace-nowrap">
+                            AIIMS - 5.2km
+                        </div>
+                    </div>
+
+                    <!-- User Location -->
+                    <div class="absolute bottom-32 right-20">
+                        <div class="bg-warning text-white p-2 rounded-full shadow-elevation-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-surface px-2 py-1 rounded shadow-elevation-1 text-xs whitespace-nowrap">
+                            Your Location
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Controls -->
+                <div class="p-4 border-t border-border">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                <span class="text-sm text-text-secondary">Engineering</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-secondary rounded-full mr-2"></div>
+                                <span class="text-sm text-text-secondary">Science</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-accent rounded-full mr-2"></div>
+                                <span class="text-sm text-text-secondary">Medical</span>
+                            </div>
+                        </div>
+                        <button class="text-primary hover:text-primary-700 text-sm font-medium">
+                            <i class="fas fa-expand-arrows-alt mr-1"></i>
+                            Fullscreen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Load More Button -->
+        <section class="mt-8 text-center">
+            <button id="load-more-btn" class="btn-outline px-8 py-3">
+                <i class="fas fa-plus mr-2"></i>
+                Load More Colleges
+            </button>
+        </section>
+    </main>
+
+    <!-- College Details Modal -->
+    <div id="college-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface rounded-lg shadow-elevation-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-border">
+                <h3 id="modal-college-name" class="text-2xl font-semibold text-text-primary">College Name</h3>
+                <button id="close-modal" class="text-text-secondary hover:text-text-primary">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- College Image -->
+                    <div class="lg:col-span-1">
+                        <img id="modal-college-image" src alt class="w-full h-48 object-cover rounded-lg mb-4" />
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Overall Rating</span>
+                                <div class="flex items-center">
+                                    <span id="modal-rating" class="font-medium text-text-primary mr-1">4.2</span>
+                                    <div class="flex">
+                                        <i class="fas fa-star text-warning text-sm"></i>
+                                        <i class="fas fa-star text-warning text-sm"></i>
+                                        <i class="fas fa-star text-warning text-sm"></i>
+                                        <i class="fas fa-star text-warning text-sm"></i>
+                                        <i class="far fa-star text-warning text-sm"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Distance</span>
+                                <span id="modal-distance" class="font-medium text-text-primary">2.5 km</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- College Details -->
+                    <div class="lg:col-span-2">
+                        <div class="space-y-6">
+                            <!-- Basic Info -->
+                            <div>
+                                <h4 class="font-semibold text-text-primary mb-3">Basic Information</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Location:</span>
+                                        <span id="modal-location" class="font-medium text-text-primary ml-1">Delhi, India</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Established:</span>
+                                        <span id="modal-established" class="font-medium text-text-primary ml-1">1941</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Type:</span>
+                                        <span id="modal-type" class="font-medium text-text-primary ml-1">Government</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Affiliation:</span>
+                                        <span id="modal-affiliation" class="font-medium text-text-primary ml-1">UGC</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Admission Info -->
+                            <div>
+                                <h4 class="font-semibold text-text-primary mb-3">Admission Details</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Cutoff:</span>
+                                        <span id="modal-cutoff" class="font-medium text-text-primary ml-1">85%</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Annual Fees:</span>
+                                        <span id="modal-fees" class="font-medium text-text-primary ml-1">₹2.5L</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Application Deadline:</span>
+                                        <span id="modal-deadline" class="font-medium text-text-primary ml-1">June 30, 2025</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Entrance Exam:</span>
+                                        <span id="modal-exam" class="font-medium text-text-primary ml-1">JEE Main</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Facilities -->
+                            <div>
+                                <h4 class="font-semibold text-text-primary mb-3">Facilities</h4>
+                                <div id="modal-facilities" class="flex flex-wrap gap-2">
+                                    <span class="bg-primary-100 text-primary text-xs px-2 py-1 rounded-full">Library</span>
+                                    <span class="bg-secondary-100 text-secondary text-xs px-2 py-1 rounded-full">Hostel</span>
+                                    <span class="bg-warning/20 text-warning text-xs px-2 py-1 rounded-full">Sports Complex</span>
+                                    <span class="bg-accent-100 text-accent text-xs px-2 py-1 rounded-full">Labs</span>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div>
+                                <h4 class="font-semibold text-text-primary mb-3">Contact Information</h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-phone text-text-secondary mr-2"></i>
+                                        <span id="modal-phone">+91-11-2787-1023</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope text-text-secondary mr-2"></i>
+                                        <span id="modal-email">admissions@dtu.ac.in</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-globe text-text-secondary mr-2"></i>
+                                        <a href="#" id="modal-website" class="text-primary hover:text-primary-700">www.dtu.ac.in</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 mt-6 pt-6 border-t border-border">
+                    <button id="modal-favorite-btn" class="btn-outline flex-1">
+                        <i class="far fa-heart mr-2"></i>
+                        Add to Favorites
+                    </button>
+                    <button class="btn-secondary flex-1">
+                        <i class="fas fa-calendar-plus mr-2"></i>
+                        Add to Timeline
+                    </button>
+                    <button class="btn-primary flex-1">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // View toggle functionality
+        const listViewBtn = document.getElementById('list-view-btn');
+        const mapViewBtn = document.getElementById('map-view-btn');
+        const listView = document.getElementById('list-view');
+        const mapView = document.getElementById('map-view');
+
+        listViewBtn.addEventListener('click', function() {
+            listViewBtn.classList.add('bg-primary', 'text-white');
+            listViewBtn.classList.remove('text-text-secondary');
+            mapViewBtn.classList.remove('bg-primary', 'text-white');
+            mapViewBtn.classList.add('text-text-secondary');
+            
+            listView.classList.remove('hidden');
+            mapView.classList.add('hidden');
+        });
+
+        mapViewBtn.addEventListener('click', function() {
+            mapViewBtn.classList.add('bg-primary', 'text-white');
+            mapViewBtn.classList.remove('text-text-secondary');
+            listViewBtn.classList.remove('bg-primary', 'text-white');
+            listViewBtn.classList.add('text-text-secondary');
+            
+            mapView.classList.remove('hidden');
+            listView.classList.add('hidden');
+        });
+
+        // Filter toggle for mobile
+        document.getElementById('filter-toggle').addEventListener('click', function() {
+            const mobileFilters = document.getElementById('mobile-filters');
+            mobileFilters.classList.toggle('hidden');
+        });
+
+        // Location functionality
+        document.getElementById('location-btn').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Getting Location...';
+            btn.disabled = true;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        // Success - update UI
+                        document.getElementById('location-status').classList.remove('hidden');
+                        btn.innerHTML = '<i class="fas fa-check mr-2"></i>Location Set';
+                        
+                        // Update distance calculations
+                        updateDistances(position.coords.latitude, position.coords.longitude);
+                        
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 2000);
+                    },
+                    function(error) {
+                        // Error - show fallback
+                        btn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Location Failed';
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 2000);
+                    }
+                );
+            } else {
+                btn.innerHTML = '<i class="fas fa-times mr-2"></i>Not Supported';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        // Favorites functionality
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const collegeId = this.dataset.collegeId;
+                const icon = this.querySelector('i');
+                
+                if (icon.classList.contains('far')) {
+                    // Add to favorites
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    this.classList.add('text-accent');
+                    this.classList.remove('text-text-secondary');
+                    
+                    // Save to localStorage
+                    saveFavorite(collegeId);
+                } else {
+                    // Remove from favorites
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    this.classList.remove('text-accent');
+                    this.classList.add('text-text-secondary');
+                    
+                    // Remove from localStorage
+                    removeFavorite(collegeId);
+                }
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('college-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        document.querySelectorAll('.view-details-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const collegeId = this.dataset.collegeId;
+                openCollegeModal(collegeId);
+            });
+        });
+
+        closeModal.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filterColleges();
+        });
+
+        // Filter functionality
+        const filterElements = [
+            'stream-filter', 'city-filter', 'hostel-filter', 'cutoff-filter',
+            'mobile-stream-filter', 'mobile-city-filter', 'mobile-hostel-filter', 'mobile-cutoff-filter'
+        ];
+
+        filterElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('change', filterColleges);
+            }
+        });
+
+        // Clear filters
+        document.getElementById('clear-filters').addEventListener('click', clearFilters);
+        document.getElementById('mobile-clear-filters').addEventListener('click', clearFilters);
+
+        // Apply filters (mobile)
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            document.getElementById('mobile-filters').classList.add('hidden');
+            filterColleges();
+        });
+
+        // Sort functionality
+        document.getElementById('sort-select').addEventListener('change', function() {
+            sortColleges(this.value);
+        });
+
+        // Load more functionality
+        document.getElementById('load-more-btn').addEventListener('click', function() {
+            const btn = this;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            
+            setTimeout(() => {
+                // Simulate loading more colleges
+                btn.innerHTML = '<i class="fas fa-plus mr-2"></i>Load More Colleges';
+                // In a real app, you would load more data here
+            }, 1500);
+        });
+
+        // Helper functions
+        function updateDistances(userLat, userLng) {
+            // Mock distance calculation
+            document.querySelectorAll('.distance-info').forEach(element => {
+                const currentDistance = parseFloat(element.textContent);
+                // In a real app, calculate actual distance using coordinates
+                element.textContent = `${(currentDistance * 0.9).toFixed(1)} km away`;
+            });
+        }
+
+        function saveFavorite(collegeId) {
+            let favorites = JSON.parse(localStorage.getItem('collegeFavorites')) || [];
+            if (!favorites.includes(collegeId)) {
+                favorites.push(collegeId);
+                localStorage.setItem('collegeFavorites', JSON.stringify(favorites));
+            }
+        }
+
+        function removeFavorite(collegeId) {
+            let favorites = JSON.parse(localStorage.getItem('collegeFavorites')) || [];
+            favorites = favorites.filter(id => id !== collegeId);
+            localStorage.setItem('collegeFavorites', JSON.stringify(favorites));
+        }
+
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('collegeFavorites')) || [];
+            favorites.forEach(collegeId => {
+                const btn = document.querySelector(`[data-college-id="${collegeId}"]`);
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    btn.classList.add('text-accent');
+                    btn.classList.remove('text-text-secondary');
+                }
+            });
+        }
+
+        function openCollegeModal(collegeId) {
+            // Mock data for different colleges
+            const collegeData = {
+                '1': {
+                    name: 'Delhi Technological University',
+                    image: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3',
+                    location: 'Delhi, India',
+                    established: '1941',
+                    type: 'Government',
+                    affiliation: 'UGC',
+                    cutoff: '85%',
+                    fees: '₹2.5L',
+                    deadline: 'June 30, 2025',
+                    exam: 'JEE Main',
+                    phone: '+91-11-2787-1023',
+                    email: 'admissions@dtu.ac.in',
+                    website: 'www.dtu.ac.in',
+                    rating: '4.2',
+                    distance: '2.5 km'
+                },
+                '2': {
+                    name: 'Indian Institute of Science',
+                    image: 'https://images.pexels.com/photos/1454360/pexels-photo-1454360.jpeg?auto=compress&cs=tinysrgb&w=400',
+                    location: 'Bangalore, Karnataka',
+                    established: '1909',
+                    type: 'Government',
+                    affiliation: 'UGC',
+                    cutoff: '95%',
+                    fees: '₹1.8L',
+                    deadline: 'May 15, 2025',
+                    exam: 'GATE/NET',
+                    phone: '+91-80-2293-2001',
+                    email: 'admissions@iisc.ac.in',
+                    website: 'www.iisc.ac.in',
+                    rating: '4.8',
+                    distance: '450 km'
+                },
+                '3': {
+                    name: 'AIIMS Delhi',
+                    image: 'https://images.pixabay.com/photo/2016/07/07/16/46/dice-1502706_960_720.jpg',
+                    location: 'New Delhi, India',
+                    established: '1956',
+                    type: 'Government',
+                    affiliation: 'Ministry of Health',
+                    cutoff: '99%',
+                    fees: '₹5.8K',
+                    deadline: 'March 31, 2025',
+                    exam: 'NEET',
+                    phone: '+91-11-2659-3333',
+                    email: 'admissions@aiims.edu',
+                    website: 'www.aiims.edu',
+                    rating: '4.9',
+                    distance: '5.2 km'
+                }
+            };
+
+            const data = collegeData[collegeId];
+            if (data) {
+                document.getElementById('modal-college-name').textContent = data.name;
+                document.getElementById('modal-college-image').src = data.image;
+                document.getElementById('modal-location').textContent = data.location;
+                document.getElementById('modal-established').textContent = data.established;
+                document.getElementById('modal-type').textContent = data.type;
+                document.getElementById('modal-affiliation').textContent = data.affiliation;
+                document.getElementById('modal-cutoff').textContent = data.cutoff;
+                document.getElementById('modal-fees').textContent = data.fees;
+                document.getElementById('modal-deadline').textContent = data.deadline;
+                document.getElementById('modal-exam').textContent = data.exam;
+                document.getElementById('modal-phone').textContent = data.phone;
+                document.getElementById('modal-email').textContent = data.email;
+                document.getElementById('modal-website').textContent = data.website;
+                document.getElementById('modal-rating').textContent = data.rating;
+                document.getElementById('modal-distance').textContent = data.distance;
+
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function filterColleges() {
+            // Mock filtering logic
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const streamFilter = document.getElementById('stream-filter').value;
+            const cityFilter = document.getElementById('city-filter').value;
+            
+            let visibleCount = 0;
+            document.querySelectorAll('.college-card').forEach(card => {
+                let shouldShow = true;
+                
+                // Apply filters (simplified for demo)
+                if (searchTerm && !card.textContent.toLowerCase().includes(searchTerm)) {
+                    shouldShow = false;
+                }
+                
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update results count
+            document.querySelector('#results-count span').textContent = visibleCount;
+        }
+
+        function clearFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('stream-filter').value = '';
+            document.getElementById('city-filter').value = '';
+            document.getElementById('hostel-filter').value = '';
+            document.getElementById('cutoff-filter').value = '';
+            
+            // Clear mobile filters
+            document.getElementById('mobile-stream-filter').value = '';
+            document.getElementById('mobile-city-filter').value = '';
+            document.getElementById('mobile-hostel-filter').value = '';
+            document.getElementById('mobile-cutoff-filter').value = '';
+            
+            filterColleges();
+        }
+
+        function sortColleges(sortBy) {
+            // Mock sorting logic
+            console.log('Sorting by:', sortBy);
+            // In a real app, you would sort the college data and re-render
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFavorites();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

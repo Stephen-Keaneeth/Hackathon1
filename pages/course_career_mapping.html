@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Career Mapping - Digital Guidance Platform</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-elevation-2 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">CareerGuide</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Profile</a>
+                        <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Quiz</a>
+                        <a href="course_career_mapping.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Careers</a>
+                        <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Colleges</a>
+                        <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Timeline</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-text-secondary hover:text-text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="course_career_mapping.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Careers</a>
+                <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Colleges</a>
+                <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <section class="mb-8">
+            <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+                            Course & Career Mapping
+                        </h2>
+                        <p class="text-text-secondary text-lg">
+                            Explore degree programs and their career pathways to make informed educational decisions
+                        </p>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Career mapping illustration" class="w-20 h-20 rounded-full object-cover" onerror="this.src='https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'; this.onerror=null;" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Controls -->
+        <section class="mb-8">
+            <div class="bg-surface rounded-lg shadow-elevation-2 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-text-primary">Filter Courses</h3>
+                    <button id="reset-filters" class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                        <i class="fas fa-undo mr-1"></i> Reset
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Stream Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Stream</label>
+                        <select id="stream-filter" class="input-field">
+                            <option value>All Streams</option>
+                            <option value="science">Science</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="arts">Arts</option>
+                            <option value="technology">Technology</option>
+                            <option value="vocational">Vocational</option>
+                        </select>
+                    </div>
+
+                    <!-- Industry Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Industry Focus</label>
+                        <select id="industry-filter" class="input-field">
+                            <option value>All Industries</option>
+                            <option value="technology">Technology</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="finance">Finance</option>
+                            <option value="education">Education</option>
+                            <option value="media">Media & Arts</option>
+                            <option value="business">Business</option>
+                        </select>
+                    </div>
+
+                    <!-- Career Outcome Filter -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Career Outcome</label>
+                        <select id="outcome-filter" class="input-field">
+                            <option value>All Outcomes</option>
+                            <option value="high-salary">High Salary Potential</option>
+                            <option value="job-security">Job Security</option>
+                            <option value="entrepreneurship">Entrepreneurship</option>
+                            <option value="government">Government Jobs</option>
+                            <option value="research">Research & Academia</option>
+                        </select>
+                    </div>
+
+                    <!-- Search -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Search</label>
+                        <div class="relative">
+                            <input type="text" id="search-courses" placeholder="Search courses..." class="input-field pr-10" />
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-search text-text-secondary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Comparison Bar -->
+        <section id="comparison-bar" class="mb-6 hidden">
+            <div class="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-balance-scale text-primary mr-2"></i>
+                        <span class="font-medium text-text-primary">Compare Courses</span>
+                        <span id="comparison-count" class="ml-2 bg-primary text-white text-xs px-2 py-1 rounded-full">0</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="compare-courses-btn" class="btn-primary text-sm px-4 py-2" disabled>
+                            Compare Selected
+                        </button>
+                        <button id="clear-comparison" class="text-text-secondary hover:text-text-primary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Cards Grid -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">Available Courses</h3>
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-text-secondary">View:</span>
+                    <button id="grid-view" class="p-2 text-primary bg-primary-100 rounded-md">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button id="list-view" class="p-2 text-text-secondary hover:text-text-primary rounded-md">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Course cards will be dynamically generated here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="hidden text-center py-12">
+                <div class="bg-surface rounded-lg p-8">
+                    <i class="fas fa-search text-text-secondary text-4xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-text-primary mb-2">No courses found</h3>
+                    <p class="text-text-secondary">Try adjusting your filters or search terms</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Progression Visualization -->
+        <section class="mb-8">
+            <div class="bg-surface rounded-lg shadow-elevation-2 p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-text-primary">Career Progression Insights</h3>
+                    <select id="progression-course" class="input-field max-w-xs">
+                        <option value="btech">B.Tech Computer Science</option>
+                        <option value="bcom">B.Com Finance</option>
+                        <option value="ba">B.A. Psychology</option>
+                        <option value="bba">BBA Marketing</option>
+                    </select>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Salary Progression Chart -->
+                    <div>
+                        <h4 class="font-medium text-text-primary mb-4">Salary Progression</h4>
+                        <div class="bg-background rounded-lg p-4">
+                            <canvas id="salaryChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Career Path Timeline -->
+                    <div>
+                        <h4 class="font-medium text-text-primary mb-4">Typical Career Path</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="bg-primary w-3 h-3 rounded-full mr-4"></div>
+                                <div>
+                                    <div class="font-medium text-text-primary">Entry Level (0-2 years)</div>
+                                    <div class="text-sm text-text-secondary">Junior Developer, Trainee</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-secondary w-3 h-3 rounded-full mr-4"></div>
+                                <div>
+                                    <div class="font-medium text-text-primary">Mid Level (3-5 years)</div>
+                                    <div class="text-sm text-text-secondary">Senior Developer, Team Lead</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-warning w-3 h-3 rounded-full mr-4"></div>
+                                <div>
+                                    <div class="font-medium text-text-primary">Senior Level (6+ years)</div>
+                                    <div class="text-sm text-text-secondary">Manager, Architect, Consultant</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Course Detail Modal -->
+    <div id="course-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-surface rounded-lg shadow-elevation-4 max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="sticky top-0 bg-surface border-b border-border p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 id="modal-title" class="text-xl font-semibold text-text-primary"></h3>
+                        <button id="close-modal" class="text-text-secondary hover:text-text-primary">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div id="modal-content">
+                        <!-- Modal content will be dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Comparison Modal -->
+    <div id="comparison-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-surface rounded-lg shadow-elevation-4 max-w-6xl w-full max-h-screen overflow-y-auto">
+                <div class="sticky top-0 bg-surface border-b border-border p-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-text-primary">Course Comparison</h3>
+                        <button id="close-comparison-modal" class="text-text-secondary hover:text-text-primary">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div id="comparison-content">
+                        <!-- Comparison content will be dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Course data
+        const coursesData = [
+            {
+                id: 'btech-cs',
+                name: 'B.Tech Computer Science',
+                stream: 'science',
+                duration: '4 years',
+                industry: 'technology',
+                outcome: 'high-salary',
+                description: 'Comprehensive program covering software development, algorithms, and computer systems.',
+                subjects: ['Programming', 'Data Structures', 'Computer Networks', 'Database Systems', 'Software Engineering'],
+                industries: ['Software Development', 'IT Services', 'Cybersecurity', 'AI/ML', 'Gaming'],
+                jobRoles: ['Software Engineer', 'Data Scientist', 'System Analyst', 'DevOps Engineer', 'Product Manager'],
+                higherStudy: ['M.Tech', 'MBA', 'MS abroad', 'PhD in Computer Science'],
+                govExams: ['GATE', 'UPSC (Technical Services)', 'SSC CGL', 'Bank PO'],
+                avgSalary: '₹6-12 LPA',
+                topColleges: ['IIT Delhi', 'IIT Bombay', 'BITS Pilani', 'NIT Trichy'],
+                skills: ['Programming Languages', 'Problem Solving', 'System Design', 'Project Management']
+            },
+            {
+                id: 'bcom-finance',
+                name: 'B.Com Finance',
+                stream: 'commerce',
+                duration: '3 years',
+                industry: 'finance',
+                outcome: 'job-security',
+                description: 'Focused program on financial management, accounting, and business economics.',
+                subjects: ['Financial Accounting', 'Corporate Finance', 'Investment Analysis', 'Banking', 'Taxation'],
+                industries: ['Banking', 'Insurance', 'Investment Banking', 'Financial Planning', 'Audit & Consulting'],
+                jobRoles: ['Financial Analyst', 'Investment Banker', 'Chartered Accountant', 'Financial Planner', 'Auditor'],
+                higherStudy: ['MBA Finance', 'CA', 'CFA', 'M.Com', 'CS'],
+                govExams: ['UPSC', 'SSC CGL', 'Bank PO', 'RBI Grade B', 'SEBI Grade A'],
+                avgSalary: '₹4-8 LPA',
+                topColleges: ['SRCC Delhi', 'LSR Delhi', 'Christ University', 'Loyola Chennai'],
+                skills: ['Financial Analysis', 'Excel Proficiency', 'Communication', 'Analytical Thinking']
+            },
+            {
+                id: 'ba-psychology',
+                name: 'B.A. Psychology',
+                stream: 'arts',
+                duration: '3 years',
+                industry: 'healthcare',
+                outcome: 'research',
+                description: 'Study of human behavior, mental processes, and psychological principles.',
+                subjects: ['Cognitive Psychology', 'Social Psychology', 'Abnormal Psychology', 'Research Methods', 'Statistics'],
+                industries: ['Healthcare', 'Education', 'HR & Recruitment', 'Social Services', 'Research'],
+                jobRoles: ['Clinical Psychologist', 'Counselor', 'HR Specialist', 'Researcher', 'Social Worker'],
+                higherStudy: ['M.A. Psychology', 'M.Phil', 'PhD', 'PG Diploma in Counseling'],
+                govExams: ['UPSC', 'UGC NET', 'State PSC', 'DSSSB'],
+                avgSalary: '₹3-6 LPA',
+                topColleges: ['JNU Delhi', 'BHU Varanasi', 'Jamia Millia', 'Presidency Kolkata'],
+                skills: ['Empathy', 'Communication', 'Research Skills', 'Critical Thinking']
+            },
+            {
+                id: 'bba-marketing',
+                name: 'BBA Marketing',
+                stream: 'commerce',
+                duration: '3 years',
+                industry: 'business',
+                outcome: 'entrepreneurship',
+                description: 'Business administration with specialization in marketing strategies and consumer behavior.',
+                subjects: ['Marketing Management', 'Consumer Behavior', 'Digital Marketing', 'Brand Management', 'Sales Management'],
+                industries: ['FMCG', 'E-commerce', 'Advertising', 'Retail', 'Digital Marketing'],
+                jobRoles: ['Marketing Manager', 'Brand Manager', 'Digital Marketer', 'Sales Executive', 'Business Analyst'],
+                higherStudy: ['MBA Marketing', 'PGDM', 'MS Marketing abroad'],
+                govExams: ['UPSC', 'SSC CGL', 'Bank PO', 'State PSC'],
+                avgSalary: '₹4-7 LPA',
+                topColleges: ['NMIMS Mumbai', 'Christ University', 'Symbiosis Pune', 'VIT Vellore'],
+                skills: ['Communication', 'Creativity', 'Analytics', 'Leadership']
+            },
+            {
+                id: 'bca',
+                name: 'BCA (Bachelor of Computer Applications)',
+                stream: 'technology',
+                duration: '3 years',
+                industry: 'technology',
+                outcome: 'high-salary',
+                description: 'Application-focused computer science program with practical programming skills.',
+                subjects: ['Programming in C/Java', 'Web Development', 'Database Management', 'Software Engineering', 'Mobile App Development'],
+                industries: ['Software Development', 'Web Development', 'Mobile Apps', 'IT Support', 'System Administration'],
+                jobRoles: ['Software Developer', 'Web Developer', 'System Administrator', 'Database Administrator', 'Technical Support'],
+                higherStudy: ['MCA', 'M.Tech', 'MBA IT', 'MS abroad'],
+                govExams: ['GATE', 'SSC CGL', 'Bank PO (IT Officer)', 'NIELIT'],
+                avgSalary: '₹3-6 LPA',
+                topColleges: ['JNU Delhi', 'BHU Varanasi', 'Christ University', 'Presidency Kolkata'],
+                skills: ['Programming', 'Problem Solving', 'Database Management', 'Web Technologies']
+            },
+            {
+                id: 'bvoc-hospitality',
+                name: 'B.Voc Hospitality Management',
+                stream: 'vocational',
+                duration: '3 years',
+                industry: 'hospitality',
+                outcome: 'entrepreneurship',
+                description: 'Skill-based program focusing on hospitality industry operations and management.',
+                subjects: ['Hotel Operations', 'Food & Beverage Management', 'Tourism Management', 'Event Management', 'Customer Service'],
+                industries: ['Hotels & Resorts', 'Airlines', 'Event Management', 'Tourism', 'Food Service'],
+                jobRoles: ['Hotel Manager', 'Event Coordinator', 'Tourism Officer', 'Restaurant Manager', 'Travel Consultant'],
+                higherStudy: ['MBA Hospitality', 'M.Voc', 'Diploma in Hotel Management'],
+                govExams: ['UPSC (Tourism)', 'State Tourism Board', 'Airport Authority'],
+                avgSalary: '₹3-5 LPA',
+                topColleges: ['IHM Delhi', 'Christ University', 'Amity University', 'Manipal University'],
+                skills: ['Customer Service', 'Communication', 'Leadership', 'Problem Solving']
+            }
+        ];
+
+        let filteredCourses = [...coursesData];
+        let selectedCourses = [];
+        let salaryChart = null;
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCourses();
+            initializeChart();
+            setupEventListeners();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filter controls
+            document.getElementById('stream-filter').addEventListener('change', applyFilters);
+            document.getElementById('industry-filter').addEventListener('change', applyFilters);
+            document.getElementById('outcome-filter').addEventListener('change', applyFilters);
+            document.getElementById('search-courses').addEventListener('input', applyFilters);
+            document.getElementById('reset-filters').addEventListener('click', resetFilters);
+
+            // View toggles
+            document.getElementById('grid-view').addEventListener('click', () => toggleView('grid'));
+            document.getElementById('list-view').addEventListener('click', () => toggleView('list'));
+
+            // Modal controls
+            document.getElementById('close-modal').addEventListener('click', closeModal);
+            document.getElementById('close-comparison-modal').addEventListener('click', closeComparisonModal);
+
+            // Comparison controls
+            document.getElementById('compare-courses-btn').addEventListener('click', showComparison);
+            document.getElementById('clear-comparison').addEventListener('click', clearComparison);
+
+            // Chart controls
+            document.getElementById('progression-course').addEventListener('change', updateChart);
+
+            // Close modals on outside click
+            document.getElementById('course-modal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            document.getElementById('comparison-modal').addEventListener('click', function(e) {
+                if (e.target === this) closeComparisonModal();
+            });
+        }
+
+        // Render courses
+        function renderCourses() {
+            const grid = document.getElementById('courses-grid');
+            const noResults = document.getElementById('no-results');
+
+            if (filteredCourses.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = filteredCourses.map(course => createCourseCard(course)).join('');
+
+            // Add event listeners to course cards
+            filteredCourses.forEach(course => {
+                const card = document.getElementById(`course-${course.id}`);
+                const detailsBtn = card.querySelector('.view-details-btn');
+                const compareCheckbox = card.querySelector('.compare-checkbox');
+
+                detailsBtn.addEventListener('click', () => showCourseDetails(course));
+                compareCheckbox.addEventListener('change', (e) => toggleComparison(course, e.target.checked));
+            });
+        }
+
+        // Create course card HTML
+        function createCourseCard(course) {
+            const isSelected = selectedCourses.some(c => c.id === course.id);
+            
+            return `
+                <div id="course-${course.id}" class="card hover:shadow-elevation-3 transition-smooth">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="bg-primary-100 p-2 rounded-lg mr-3">
+                                <i class="fas fa-graduation-cap text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-text-primary">${course.name}</h4>
+                                <p class="text-sm text-text-secondary">${course.duration} • ${course.avgSalary}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" class="compare-checkbox" ${isSelected ? 'checked' : ''}>
+                            <label class="text-xs text-text-secondary">Compare</label>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-text-secondary mb-4">${course.description}</p>
+
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <span class="text-xs font-medium text-text-primary">Key Subjects:</span>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                ${course.subjects.slice(0, 3).map(subject => 
+                                    `<span class="bg-primary-50 text-primary text-xs px-2 py-1 rounded-full">${subject}</span>`
+                                ).join('')}
+                                ${course.subjects.length > 3 ? `<span class="text-xs text-text-secondary">+${course.subjects.length - 3} more</span>` : ''}
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-medium text-text-primary">Top Job Roles:</span>
+                            <div class="flex flex-wrap gap-1 mt-1">
+                                ${course.jobRoles.slice(0, 2).map(role => 
+                                    `<span class="bg-secondary-50 text-secondary text-xs px-2 py-1 rounded-full">${role}</span>`
+                                ).join('')}
+                                ${course.jobRoles.length > 2 ? `<span class="text-xs text-text-secondary">+${course.jobRoles.length - 2} more</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-border">
+                        <div class="flex items-center space-x-4">
+                            <button class="text-text-secondary hover:text-accent transition-smooth" title="Add to favorites">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="text-text-secondary hover:text-primary transition-smooth" title="Share">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                        <button class="view-details-btn text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                            View Details <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const streamFilter = document.getElementById('stream-filter').value;
+            const industryFilter = document.getElementById('industry-filter').value;
+            const outcomeFilter = document.getElementById('outcome-filter').value;
+            const searchTerm = document.getElementById('search-courses').value.toLowerCase();
+
+            filteredCourses = coursesData.filter(course => {
+                const matchesStream = !streamFilter || course.stream === streamFilter;
+                const matchesIndustry = !industryFilter || course.industry === industryFilter;
+                const matchesOutcome = !outcomeFilter || course.outcome === outcomeFilter;
+                const matchesSearch = !searchTerm || 
+                    course.name.toLowerCase().includes(searchTerm) ||
+                    course.description.toLowerCase().includes(searchTerm) ||
+                    course.subjects.some(subject => subject.toLowerCase().includes(searchTerm));
+
+                return matchesStream && matchesIndustry && matchesOutcome && matchesSearch;
+            });
+
+            renderCourses();
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('stream-filter').value = '';
+            document.getElementById('industry-filter').value = '';
+            document.getElementById('outcome-filter').value = '';
+            document.getElementById('search-courses').value = '';
+            filteredCourses = [...coursesData];
+            renderCourses();
+        }
+
+        // Toggle view
+        function toggleView(view) {
+            const gridBtn = document.getElementById('grid-view');
+            const listBtn = document.getElementById('list-view');
+            const grid = document.getElementById('courses-grid');
+
+            if (view === 'grid') {
+                gridBtn.classList.add('text-primary', 'bg-primary-100');
+                gridBtn.classList.remove('text-text-secondary');
+                listBtn.classList.add('text-text-secondary');
+                listBtn.classList.remove('text-primary', 'bg-primary-100');
+                grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+            } else {
+                listBtn.classList.add('text-primary', 'bg-primary-100');
+                listBtn.classList.remove('text-text-secondary');
+                gridBtn.classList.add('text-text-secondary');
+                gridBtn.classList.remove('text-primary', 'bg-primary-100');
+                grid.className = 'space-y-4';
+            }
+        }
+
+        // Show course details
+        function showCourseDetails(course) {
+            const modal = document.getElementById('course-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+
+            title.textContent = course.name;
+            content.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-text-primary mb-3">Course Overview</h4>
+                        <p class="text-text-secondary mb-4">${course.description}</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Duration & Salary</h5>
+                                <p class="text-sm text-text-secondary">${course.duration} • Average: ${course.avgSalary}</p>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Key Subjects</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    ${course.subjects.map(subject => 
+                                        `<span class="bg-primary-50 text-primary text-sm px-3 py-1 rounded-full">${subject}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Required Skills</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    ${course.skills.map(skill => 
+                                        `<span class="bg-secondary-50 text-secondary text-sm px-3 py-1 rounded-full">${skill}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-text-primary mb-3">Career Information</h4>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Industries</h5>
+                                <ul class="text-sm text-text-secondary space-y-1">
+                                    ${course.industries.map(industry => `<li>• ${industry}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Job Roles</h5>
+                                <ul class="text-sm text-text-secondary space-y-1">
+                                    ${course.jobRoles.map(role => `<li>• ${role}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Higher Study Options</h5>
+                                <ul class="text-sm text-text-secondary space-y-1">
+                                    ${course.higherStudy.map(study => `<li>• ${study}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Government Exams</h5>
+                                <ul class="text-sm text-text-secondary space-y-1">
+                                    ${course.govExams.map(exam => `<li>• ${exam}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-medium text-text-primary mb-2">Top Colleges</h5>
+                                <ul class="text-sm text-text-secondary space-y-1">
+                                    ${course.topColleges.map(college => `<li>• ${college}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-border">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <button class="btn-outline">
+                                <i class="far fa-heart mr-2"></i> Add to Favorites
+                            </button>
+                            <button class="text-text-secondary hover:text-primary">
+                                <i class="fas fa-share-alt mr-2"></i> Share
+                            </button>
+                        </div>
+                        <a href="college_discovery.html" class="btn-primary">
+                            Find Colleges <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('course-modal').classList.add('hidden');
+        }
+
+        // Toggle comparison
+        function toggleComparison(course, isSelected) {
+            if (isSelected) {
+                if (selectedCourses.length < 3) {
+                    selectedCourses.push(course);
+                } else {
+                    // Uncheck the checkbox if limit reached
+                    event.target.checked = false;
+                    alert('You can compare maximum 3 courses at a time.');
+                    return;
+                }
+            } else {
+                selectedCourses = selectedCourses.filter(c => c.id !== course.id);
+            }
+
+            updateComparisonBar();
+        }
+
+        // Update comparison bar
+        function updateComparisonBar() {
+            const bar = document.getElementById('comparison-bar');
+            const count = document.getElementById('comparison-count');
+            const btn = document.getElementById('compare-courses-btn');
+
+            count.textContent = selectedCourses.length;
+            btn.disabled = selectedCourses.length < 2;
+
+            if (selectedCourses.length > 0) {
+                bar.classList.remove('hidden');
+            } else {
+                bar.classList.add('hidden');
+            }
+        }
+
+        // Show comparison
+        function showComparison() {
+            const modal = document.getElementById('comparison-modal');
+            const content = document.getElementById('comparison-content');
+
+            content.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-border">
+                                <th class="text-left p-4 font-medium text-text-primary">Aspect</th>
+                                ${selectedCourses.map(course => 
+                                    `<th class="text-left p-4 font-medium text-text-primary">${course.name}</th>`
+                                ).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-border">
+                                <td class="p-4 font-medium text-text-primary">Duration</td>
+                                ${selectedCourses.map(course => 
+                                    `<td class="p-4 text-text-secondary">${course.duration}</td>`
+                                ).join('')}
+                            </tr>
+                            <tr class="border-b border-border">
+                                <td class="p-4 font-medium text-text-primary">Average Salary</td>
+                                ${selectedCourses.map(course => 
+                                    `<td class="p-4 text-text-secondary">${course.avgSalary}</td>`
+                                ).join('')}
+                            </tr>
+                            <tr class="border-b border-border">
+                                <td class="p-4 font-medium text-text-primary">Key Subjects</td>
+                                ${selectedCourses.map(course => 
+                                    `<td class="p-4 text-text-secondary">
+                                        <ul class="space-y-1">
+                                            ${course.subjects.slice(0, 3).map(subject => `<li>• ${subject}</li>`).join('')}
+                                        </ul>
+                                    </td>`
+                                ).join('')}
+                            </tr>
+                            <tr class="border-b border-border">
+                                <td class="p-4 font-medium text-text-primary">Top Job Roles</td>
+                                ${selectedCourses.map(course => 
+                                    `<td class="p-4 text-text-secondary">
+                                        <ul class="space-y-1">
+                                            ${course.jobRoles.slice(0, 3).map(role => `<li>• ${role}</li>`).join('')}
+                                        </ul>
+                                    </td>`
+                                ).join('')}
+                            </tr>
+                            <tr class="border-b border-border">
+                                <td class="p-4 font-medium text-text-primary">Industries</td>
+                                ${selectedCourses.map(course => 
+                                    `<td class="p-4 text-text-secondary">
+                                        <ul class="space-y-1">
+                                            ${course.industries.slice(0, 3).map(industry => `<li>• ${industry}</li>`).join('')}
+                                        </ul>
+                                    </td>`
+                                ).join('')}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close comparison modal
+        function closeComparisonModal() {
+            document.getElementById('comparison-modal').classList.add('hidden');
+        }
+
+        // Clear comparison
+        function clearComparison() {
+            selectedCourses = [];
+            updateComparisonBar();
+            // Uncheck all checkboxes
+            document.querySelectorAll('.compare-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.getElementById('comparison-bar').classList.add('hidden');
+        }
+
+        // Initialize salary chart
+        function initializeChart() {
+            const ctx = document.getElementById('salaryChart').getContext('2d');
+            
+            salaryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Entry Level', '2-3 Years', '4-5 Years', '6-8 Years', '9+ Years'],
+                    datasets: [{
+                        label: 'Salary (LPA)',
+                        data: [6, 8, 12, 18, 25],
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Salary (LPA)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Experience Level'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update chart based on selected course
+        function updateChart() {
+            const selectedCourse = document.getElementById('progression-course').value;
+            
+            const salaryData = {
+                'btech': [6, 8, 12, 18, 25],
+                'bcom': [4, 5, 7, 10, 15],
+                'ba': [3, 4, 5, 7, 12],
+                'bba': [4, 6, 8, 12, 18]
+            };
+
+            salaryChart.data.datasets[0].data = salaryData[selectedCourse];
+            salaryChart.update();
+        }
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

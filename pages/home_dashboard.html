@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Dashboard - Digital Guidance Platform</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-elevation-2 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">CareerGuide</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="home_dashboard.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Profile</a>
+                        <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Quiz</a>
+                        <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Careers</a>
+                        <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Colleges</a>
+                        <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Timeline</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-text-secondary hover:text-text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="home_dashboard.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Careers</a>
+                <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Colleges</a>
+                <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Personalized Greeting Section -->
+        <section class="mb-8">
+            <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-6 md:p-8">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h2 id="greeting-text" class="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+                            Good Morning, Alex! 👋
+                        </h2>
+                        <p id="class-level" class="text-text-secondary text-lg">
+                            Class 12 Student • Science Stream
+                        </p>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Student illustration" class="w-20 h-20 rounded-full object-cover" onerror="this.src='https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'; this.onerror=null;" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions Section -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold text-text-primary mb-4">Quick Actions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="aptitude_assessment_quiz.html" class="card hover:shadow-elevation-3 transition-smooth group">
+                    <div class="flex items-center">
+                        <div class="bg-primary-100 p-3 rounded-lg group-hover:bg-primary-200 transition-smooth">
+                            <i class="fas fa-brain text-primary text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-text-primary">Take Quiz</h4>
+                            <p class="text-sm text-text-secondary">Discover your interests</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="college_discovery.html" class="card hover:shadow-elevation-3 transition-smooth group">
+                    <div class="flex items-center">
+                        <div class="bg-secondary-100 p-3 rounded-lg group-hover:bg-secondary-200 transition-smooth">
+                            <i class="fas fa-university text-secondary text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-text-primary">Explore Colleges</h4>
+                            <p class="text-sm text-text-secondary">Find your perfect match</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="timeline_event_manager.html" class="card hover:shadow-elevation-3 transition-smooth group">
+                    <div class="flex items-center">
+                        <div class="bg-accent-100 p-3 rounded-lg group-hover:bg-accent-200 transition-smooth">
+                            <i class="fas fa-calendar-alt text-accent text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-medium text-text-primary">Manage Timeline</h4>
+                            <p class="text-sm text-text-secondary">Track important dates</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Recommended Streams Section -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">Recommended for You</h3>
+                <button id="refresh-recommendations" class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                    <i class="fas fa-sync-alt mr-1"></i> Refresh
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Engineering Stream Card -->
+                <div class="card hover:shadow-elevation-3 transition-smooth">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-primary-100 p-2 rounded-lg">
+                            <i class="fas fa-cogs text-primary text-lg"></i>
+                        </div>
+                        <div class="flex items-center bg-primary-50 px-2 py-1 rounded-full">
+                            <div class="w-2 h-2 bg-primary rounded-full mr-1"></div>
+                            <span class="text-xs font-medium text-primary">92% Match</span>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-text-primary mb-2">Engineering</h4>
+                    <p class="text-sm text-text-secondary mb-4">Perfect for your strong analytical skills and interest in technology. High demand in software and electronics.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-text-secondary">Based on quiz results</span>
+                        <a href="course_career_mapping.html" class="text-primary hover:text-primary-700 text-sm font-medium">
+                            Explore <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Medical Stream Card -->
+                <div class="card hover:shadow-elevation-3 transition-smooth">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-secondary-100 p-2 rounded-lg">
+                            <i class="fas fa-heartbeat text-secondary text-lg"></i>
+                        </div>
+                        <div class="flex items-center bg-secondary-50 px-2 py-1 rounded-full">
+                            <div class="w-2 h-2 bg-secondary rounded-full mr-1"></div>
+                            <span class="text-xs font-medium text-secondary">87% Match</span>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-text-primary mb-2">Medical Sciences</h4>
+                    <p class="text-sm text-text-secondary mb-4">Your empathy and science aptitude align well with healthcare careers. Growing field with social impact.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-text-secondary">Based on interests</span>
+                        <a href="course_career_mapping.html" class="text-secondary hover:text-secondary-700 text-sm font-medium">
+                            Explore <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Business Stream Card -->
+                <div class="card hover:shadow-elevation-3 transition-smooth">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-warning/20 p-2 rounded-lg">
+                            <i class="fas fa-chart-line text-warning text-lg"></i>
+                        </div>
+                        <div class="flex items-center bg-warning/10 px-2 py-1 rounded-full">
+                            <div class="w-2 h-2 bg-warning rounded-full mr-1"></div>
+                            <span class="text-xs font-medium text-warning">78% Match</span>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-text-primary mb-2">Business & Management</h4>
+                    <p class="text-sm text-text-secondary mb-4">Your leadership qualities and communication skills suggest success in business and entrepreneurship.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-text-secondary">Based on profile</span>
+                        <a href="course_career_mapping.html" class="text-warning hover:text-warning/80 text-sm font-medium">
+                            Explore <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">Upcoming Events</h3>
+                <a href="timeline_event_manager.html" class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                    View All <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Urgent Event (Within 14 days) -->
+                <div class="card border-l-4 border-accent bg-accent-50">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="bg-accent-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-exclamation-triangle text-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-text-primary">JEE Main Application Deadline</h4>
+                                <p class="text-sm text-text-secondary">Due in 5 days • September 18, 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-accent text-white text-xs px-2 py-1 rounded-full">Urgent</span>
+                            <button class="text-text-secondary hover:text-text-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Event -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="bg-primary-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-graduation-cap text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-text-primary">College Fair - Delhi</h4>
+                                <p class="text-sm text-text-secondary">October 15, 2025 • 10:00 AM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-primary-100 text-primary text-xs px-2 py-1 rounded-full">Event</span>
+                            <button class="text-text-secondary hover:text-text-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scholarship Event -->
+                <div class="card">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="bg-secondary-100 p-2 rounded-lg mr-4">
+                                <i class="fas fa-award text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-text-primary">Merit Scholarship Application</h4>
+                                <p class="text-sm text-text-secondary">November 1, 2025 • Online</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-secondary-100 text-secondary text-xs px-2 py-1 rounded-full">Scholarship</span>
+                            <button class="text-text-secondary hover:text-text-primary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Overview -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold text-text-primary mb-6">Your Progress</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="card text-center">
+                    <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-check text-primary"></i>
+                    </div>
+                    <h4 class="font-medium text-text-primary mb-1">Profile Complete</h4>
+                    <p class="text-sm text-text-secondary">100%</p>
+                </div>
+
+                <div class="card text-center">
+                    <div class="bg-secondary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-brain text-secondary"></i>
+                    </div>
+                    <h4 class="font-medium text-text-primary mb-1">Quiz Taken</h4>
+                    <p class="text-sm text-text-secondary">Yes</p>
+                </div>
+
+                <div class="card text-center">
+                    <div class="bg-warning/20 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-heart text-warning"></i>
+                    </div>
+                    <h4 class="font-medium text-text-primary mb-1">Favorites</h4>
+                    <p class="text-sm text-text-secondary">3 Colleges</p>
+                </div>
+
+                <div class="card text-center">
+                    <div class="bg-accent-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-calendar text-accent"></i>
+                    </div>
+                    <h4 class="font-medium text-text-primary mb-1">Events</h4>
+                    <p class="text-sm text-text-secondary">5 Upcoming</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Onboarding Tooltips -->
+    <div id="tooltip-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div id="tooltip-content" class="absolute bg-surface rounded-lg shadow-elevation-4 p-4 max-w-sm">
+            <div class="flex items-start justify-between mb-2">
+                <h4 id="tooltip-title" class="font-medium text-text-primary"></h4>
+                <button id="tooltip-close" class="text-text-secondary hover:text-text-primary">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p id="tooltip-text" class="text-sm text-text-secondary mb-4"></p>
+            <div class="flex justify-between">
+                <button id="tooltip-skip" class="text-text-secondary hover:text-text-primary text-sm">Skip Tour</button>
+                <button id="tooltip-next" class="btn-primary text-sm px-4 py-2">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize dashboard data
+        function initializeDashboard() {
+            // Load user profile from localStorage
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
+                name: 'Alex',
+                class: '12',
+                stream: 'Science'
+            };
+
+            // Update greeting
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'Good Morning';
+            if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
+            else if (hour >= 17) greeting = 'Good Evening';
+
+            document.getElementById('greeting-text').textContent = `${greeting}, ${userProfile.name}! 👋`;
+            document.getElementById('class-level').textContent = `Class ${userProfile.class} Student • ${userProfile.stream} Stream`;
+        }
+
+        // Onboarding tooltips
+        function initializeOnboarding() {
+            const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+            if (!hasSeenOnboarding) {
+                showOnboardingTooltips();
+            }
+        }
+
+        function showOnboardingTooltips() {
+            const tooltips = [
+                {
+                    title: 'Welcome to CareerGuide!',
+                    text: 'This is your personalized dashboard. Here you can see recommendations based on your profile and quiz results.',
+                    target: 'greeting-text'
+                },
+                {
+                    title: 'Quick Actions',
+                    text: 'Use these buttons to quickly access key features like taking the aptitude quiz or exploring colleges.',
+                    target: 'quick-actions'
+                },
+                {
+                    title: 'Personalized Recommendations',
+                    text: 'These stream recommendations are based on your interests and quiz results. Click to explore career paths.',
+                    target: 'recommendations'
+                }
+            ];
+
+            let currentTooltip = 0;
+            const overlay = document.getElementById('tooltip-overlay');
+            const content = document.getElementById('tooltip-content');
+            const title = document.getElementById('tooltip-title');
+            const text = document.getElementById('tooltip-text');
+
+            function showTooltip(index) {
+                if (index >= tooltips.length) {
+                    overlay.classList.add('hidden');
+                    localStorage.setItem('hasSeenOnboarding', 'true');
+                    return;
+                }
+
+                const tooltip = tooltips[index];
+                title.textContent = tooltip.title;
+                text.textContent = tooltip.text;
+                overlay.classList.remove('hidden');
+
+                // Position tooltip (simplified positioning)
+                content.style.top = '50%';
+                content.style.left = '50%';
+                content.style.transform = 'translate(-50%, -50%)';
+            }
+
+            document.getElementById('tooltip-next').addEventListener('click', () => {
+                currentTooltip++;
+                showTooltip(currentTooltip);
+            });
+
+            document.getElementById('tooltip-close').addEventListener('click', () => {
+                overlay.classList.add('hidden');
+                localStorage.setItem('hasSeenOnboarding', 'true');
+            });
+
+            document.getElementById('tooltip-skip').addEventListener('click', () => {
+                overlay.classList.add('hidden');
+                localStorage.setItem('hasSeenOnboarding', 'true');
+            });
+
+            showTooltip(0);
+        }
+
+        // Refresh recommendations
+        document.getElementById('refresh-recommendations').addEventListener('click', function() {
+            // Simulate refreshing recommendations
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Refreshing...';
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Refresh';
+                // Here you would typically reload recommendations from localStorage or API
+            }, 1500);
+        });
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            initializeOnboarding();
+        });
+
+        // Update time-sensitive content
+        setInterval(() => {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'Good Morning';
+            if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
+            else if (hour >= 17) greeting = 'Good Evening';
+
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
+                name: 'Alex',
+                class: '12',
+                stream: 'Science'
+            };
+
+            document.getElementById('greeting-text').textContent = `${greeting}, ${userProfile.name}! 👋`;
+        }, 60000); // Update every minute
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

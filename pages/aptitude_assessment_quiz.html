@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aptitude Assessment Quiz - Digital Guidance Platform</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-elevation-2 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">CareerGuide</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Profile</a>
+                        <a href="aptitude_assessment_quiz.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Quiz</a>
+                        <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Careers</a>
+                        <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Colleges</a>
+                        <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Timeline</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-text-secondary hover:text-text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="user_profile_management.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="aptitude_assessment_quiz.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Careers</a>
+                <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Colleges</a>
+                <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Quiz Introduction Section -->
+        <section id="quiz-intro" class="mb-8">
+            <div class="text-center mb-8">
+                <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-brain text-primary text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-semibold text-text-primary mb-4">Aptitude Assessment Quiz</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    Discover your ideal career path with our comprehensive 7-question assessment. 
+                    This quiz analyzes your interests, skills, and preferences to recommend suitable streams and degree programs.
+                </p>
+            </div>
+
+            <div class="card max-w-2xl mx-auto">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-text-primary mb-4">What to Expect</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="bg-secondary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-clock text-secondary"></i>
+                            </div>
+                            <p class="text-sm text-text-secondary">5-7 minutes</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-question-circle text-primary"></i>
+                            </div>
+                            <p class="text-sm text-text-secondary">7 questions</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-accent-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-chart-line text-accent"></i>
+                            </div>
+                            <p class="text-sm text-text-secondary">Personalized results</p>
+                        </div>
+                    </div>
+                    <button id="start-quiz-btn" class="btn-primary w-full md:w-auto">
+                        <i class="fas fa-play mr-2"></i>
+                        Start Assessment
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Progress Section -->
+        <section id="quiz-progress" class="hidden mb-6">
+            <div class="card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-text-secondary">Question</span>
+                        <span id="current-question" class="text-sm font-semibold text-primary ml-2">1</span>
+                        <span class="text-sm text-text-secondary">of 7</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span id="progress-percentage" class="text-sm font-medium text-text-secondary mr-2">14%</span>
+                        <button id="question-overview-btn" class="text-text-secondary hover:text-text-primary">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full bg-border-light rounded-full h-2">
+                    <div id="progress-bar" class="bg-primary h-2 rounded-full transition-smooth" style="width: 14%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Questions Section -->
+        <section id="quiz-questions" class="hidden">
+            <div class="card">
+                <div id="question-container">
+                    <!-- Questions will be dynamically loaded here -->
+                </div>
+                
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center mt-8 pt-6 border-t border-border-light">
+                    <button id="prev-btn" class="btn-outline disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Previous
+                    </button>
+                    <div class="flex space-x-2">
+                        <button id="save-progress-btn" class="text-text-secondary hover:text-text-primary text-sm">
+                            <i class="fas fa-save mr-1"></i>
+                            Save Progress
+                        </button>
+                    </div>
+                    <button id="next-btn" class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Next
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Overview Modal -->
+        <div id="question-overview-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-surface rounded-lg shadow-elevation-4 max-w-md w-full p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-text-primary">Question Overview</h3>
+                        <button id="close-overview-btn" class="text-text-secondary hover:text-text-primary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="question-overview-list" class="space-y-2">
+                        <!-- Question overview items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Results Section -->
+        <section id="quiz-results" class="hidden">
+            <div class="text-center mb-8">
+                <div class="bg-secondary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-trophy text-secondary text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-semibold text-text-primary mb-4">Your Assessment Results</h2>
+                <p class="text-lg text-text-secondary">
+                    Based on your responses, here are your personalized career recommendations
+                </p>
+            </div>
+
+            <!-- Primary Stream Recommendation -->
+            <div class="card mb-6">
+                <div class="text-center mb-6">
+                    <div class="bg-primary-100 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i id="primary-stream-icon" class="fas fa-graduation-cap text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-text-primary mb-2">Your Primary Recommendation</h3>
+                    <div class="bg-primary-50 rounded-lg p-4 mb-4">
+                        <h4 id="primary-stream-name" class="text-xl font-semibold text-primary mb-2">Engineering & Technology</h4>
+                        <div class="flex items-center justify-center mb-2">
+                            <div class="flex items-center bg-primary-100 px-3 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-primary rounded-full mr-2"></div>
+                                <span id="primary-confidence" class="text-sm font-medium text-primary">92% Match</span>
+                            </div>
+                        </div>
+                        <p id="primary-rationale" class="text-text-secondary">
+                            Your strong analytical thinking, problem-solving skills, and interest in technology make you an excellent candidate for engineering fields.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Degree Program Recommendations -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">Recommended Degree Programs</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- First Degree Recommendation -->
+                    <div class="card">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="bg-secondary-100 p-2 rounded-lg">
+                                <i id="degree1-icon" class="fas fa-laptop-code text-secondary"></i>
+                            </div>
+                            <div class="flex items-center bg-secondary-50 px-2 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-secondary rounded-full mr-1"></div>
+                                <span id="degree1-confidence" class="text-xs font-medium text-secondary">89% Match</span>
+                            </div>
+                        </div>
+                        <h4 id="degree1-name" class="font-semibold text-text-primary mb-2">B.Tech Computer Science</h4>
+                        <p id="degree1-rationale" class="text-sm text-text-secondary mb-4">
+                            Perfect alignment with your logical thinking and technology interests. High demand in software industry with excellent career prospects.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center text-sm text-text-secondary">
+                                <i class="fas fa-clock mr-2 text-primary"></i>
+                                <span>4 years duration</span>
+                            </div>
+                            <div class="flex items-center text-sm text-text-secondary">
+                                <i class="fas fa-briefcase mr-2 text-primary"></i>
+                                <span>Software Developer, Data Scientist</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Degree Recommendation -->
+                    <div class="card">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="bg-accent-100 p-2 rounded-lg">
+                                <i id="degree2-icon" class="fas fa-cogs text-accent"></i>
+                            </div>
+                            <div class="flex items-center bg-accent-50 px-2 py-1 rounded-full">
+                                <div class="w-2 h-2 bg-accent rounded-full mr-1"></div>
+                                <span id="degree2-confidence" class="text-xs font-medium text-accent">85% Match</span>
+                            </div>
+                        </div>
+                        <h4 id="degree2-name" class="font-semibold text-text-primary mb-2">B.Tech Mechanical Engineering</h4>
+                        <p id="degree2-rationale" class="text-sm text-text-secondary mb-4">
+                            Your practical problem-solving approach and interest in how things work make mechanical engineering a great fit.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center text-sm text-text-secondary">
+                                <i class="fas fa-clock mr-2 text-primary"></i>
+                                <span>4 years duration</span>
+                            </div>
+                            <div class="flex items-center text-sm text-text-secondary">
+                                <i class="fas fa-briefcase mr-2 text-primary"></i>
+                                <span>Design Engineer, Project Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="card mb-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-4">
+                    <i class="fas fa-route text-primary mr-2"></i>
+                    Your Next Steps
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="bg-primary-100 w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5">
+                            <span class="text-primary text-sm font-semibold">1</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-text-primary">Explore Career Paths</h4>
+                            <p class="text-sm text-text-secondary">Learn more about specific roles and industries in your recommended streams.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-secondary-100 w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5">
+                            <span class="text-secondary text-sm font-semibold">2</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-text-primary">Research Colleges</h4>
+                            <p class="text-sm text-text-secondary">Find colleges that offer your recommended degree programs.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-accent-100 w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5">
+                            <span class="text-accent text-sm font-semibold">3</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-text-primary">Plan Your Timeline</h4>
+                            <p class="text-sm text-text-secondary">Set up important dates for applications, exams, and deadlines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button id="save-results-btn" class="btn-primary">
+                    <i class="fas fa-save mr-2"></i>
+                    Save to Profile
+                </button>
+                <button id="download-pdf-btn" class="btn-outline">
+                    <i class="fas fa-download mr-2"></i>
+                    Download PDF
+                </button>
+                <a href="course_career_mapping.html" class="btn-secondary text-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    Explore Careers
+                </a>
+                <button id="retake-quiz-btn" class="text-text-secondary hover:text-text-primary text-sm">
+                    <i class="fas fa-redo mr-1"></i>
+                    Retake Quiz
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Quiz Data
+        const quizQuestions = [
+            {
+                id: 1,
+                question: "Which type of activities do you find most engaging?",
+                options: [
+                    { text: "Solving complex mathematical problems", streams: { engineering: 3, science: 2, commerce: 0, arts: 0 } },
+                    { text: "Understanding how living organisms work", streams: { engineering: 0, science: 3, commerce: 0, arts: 1 } },
+                    { text: "Analyzing market trends and business strategies", streams: { engineering: 1, science: 0, commerce: 3, arts: 1 } },
+                    { text: "Creating art, writing, or expressing ideas creatively", streams: { engineering: 0, science: 0, commerce: 1, arts: 3 } }
+                ]
+            },
+            {
+                id: 2,
+                question: "What type of work environment appeals to you most?",
+                options: [
+                    { text: "High-tech laboratories or research facilities", streams: { engineering: 3, science: 3, commerce: 0, arts: 0 } },
+                    { text: "Corporate offices with team collaboration", streams: { engineering: 1, science: 1, commerce: 3, arts: 1 } },
+                    { text: "Creative studios or flexible workspaces", streams: { engineering: 0, science: 0, commerce: 1, arts: 3 } },
+                    { text: "Field work or hands-on practical environments", streams: { engineering: 2, science: 2, commerce: 1, arts: 2 } }
+                ]
+            },
+            {
+                id: 3,
+                question: "Which subject area do you excel in or enjoy most?",
+                options: [
+                    { text: "Mathematics and Physics", streams: { engineering: 3, science: 2, commerce: 1, arts: 0 } },
+                    { text: "Biology and Chemistry", streams: { engineering: 1, science: 3, commerce: 0, arts: 0 } },
+                    { text: "Economics and Business Studies", streams: { engineering: 0, science: 0, commerce: 3, arts: 1 } },
+                    { text: "Literature, History, or Social Sciences", streams: { engineering: 0, science: 0, commerce: 1, arts: 3 } }
+                ]
+            },
+            {
+                id: 4,
+                question: "How do you prefer to solve problems?",
+                options: [
+                    { text: "Using logical analysis and systematic approaches", streams: { engineering: 3, science: 2, commerce: 2, arts: 0 } },
+                    { text: "Through experimentation and observation", streams: { engineering: 2, science: 3, commerce: 0, arts: 1 } },
+                    { text: "By considering multiple perspectives and human factors", streams: { engineering: 0, science: 1, commerce: 2, arts: 3 } },
+                    { text: "Using intuition and creative thinking", streams: { engineering: 1, science: 1, commerce: 1, arts: 3 } }
+                ]
+            },
+            {
+                id: 5,
+                question: "What motivates you most in your future career?",
+                options: [
+                    { text: "Building innovative technology solutions", streams: { engineering: 3, science: 1, commerce: 1, arts: 0 } },
+                    { text: "Making scientific discoveries or advancing knowledge", streams: { engineering: 1, science: 3, commerce: 0, arts: 1 } },
+                    { text: "Leading teams and driving business success", streams: { engineering: 1, science: 0, commerce: 3, arts: 1 } },
+                    { text: "Expressing creativity and inspiring others", streams: { engineering: 0, science: 0, commerce: 1, arts: 3 } }
+                ]
+            },
+            {
+                id: 6,
+                question: "Which type of challenges excite you most?",
+                options: [
+                    { text: "Designing and building complex systems", streams: { engineering: 3, science: 1, commerce: 0, arts: 0 } },
+                    { text: "Conducting research to understand natural phenomena", streams: { engineering: 1, science: 3, commerce: 0, arts: 1 } },
+                    { text: "Developing strategies to grow businesses", streams: { engineering: 0, science: 0, commerce: 3, arts: 1 } },
+                    { text: "Creating meaningful content or artistic works", streams: { engineering: 0, science: 0, commerce: 1, arts: 3 } }
+                ]
+            },
+            {
+                id: 7,
+                question: "How do you see yourself contributing to society?",
+                options: [
+                    { text: "Developing technology that improves daily life", streams: { engineering: 3, science: 2, commerce: 1, arts: 0 } },
+                    { text: "Advancing medical or scientific understanding", streams: { engineering: 1, science: 3, commerce: 0, arts: 1 } },
+                    { text: "Creating economic opportunities and jobs", streams: { engineering: 1, science: 0, commerce: 3, arts: 1 } },
+                    { text: "Promoting culture, education, or social awareness", streams: { engineering: 0, science: 1, commerce: 1, arts: 3 } }
+                ]
+            }
+        ];
+
+        // Stream configurations
+        const streamConfigs = {
+            engineering: {
+                name: "Engineering & Technology",
+                icon: "fas fa-cogs",
+                degrees: [
+                    {
+                        name: "B.Tech Computer Science",
+                        icon: "fas fa-laptop-code",
+                        duration: "4 years",
+                        careers: "Software Developer, Data Scientist",
+                        rationale: "Perfect alignment with your logical thinking and technology interests. High demand in software industry with excellent career prospects."
+                    },
+                    {
+                        name: "B.Tech Mechanical Engineering",
+                        icon: "fas fa-cogs",
+                        duration: "4 years",
+                        careers: "Design Engineer, Project Manager",
+                        rationale: "Your practical problem-solving approach and interest in how things work make mechanical engineering a great fit."
+                    }
+                ],
+                rationale: "Your strong analytical thinking, problem-solving skills, and interest in technology make you an excellent candidate for engineering fields."
+            },
+            science: {
+                name: "Pure Sciences",
+                icon: "fas fa-flask",
+                degrees: [
+                    {
+                        name: "B.Sc Biology",
+                        icon: "fas fa-microscope",
+                        duration: "3 years",
+                        careers: "Research Scientist, Lab Technician",
+                        rationale: "Your curiosity about natural phenomena and systematic approach to understanding life sciences align perfectly with biology."
+                    },
+                    {
+                        name: "B.Sc Chemistry",
+                        icon: "fas fa-atom",
+                        duration: "3 years",
+                        careers: "Chemical Analyst, Pharmaceutical Researcher",
+                        rationale: "Your analytical mindset and interest in experimentation make chemistry an excellent choice for your career path."
+                    }
+                ],
+                rationale: "Your curiosity about natural phenomena and systematic approach to research make you well-suited for scientific careers."
+            },
+            commerce: {
+                name: "Commerce & Business",
+                icon: "fas fa-chart-line",
+                degrees: [
+                    {
+                        name: "B.Com (Hons)",
+                        icon: "fas fa-calculator",
+                        duration: "3 years",
+                        careers: "Financial Analyst, Accountant",
+                        rationale: "Your understanding of business dynamics and numerical aptitude make commerce a natural fit for your skills."
+                    },
+                    {
+                        name: "BBA",
+                        icon: "fas fa-briefcase",
+                        duration: "3 years",
+                        careers: "Business Manager, Marketing Executive",
+                        rationale: "Your leadership potential and strategic thinking align well with business administration and management roles."
+                    }
+                ],
+                rationale: "Your strategic thinking, leadership qualities, and interest in business dynamics make you ideal for commerce fields."
+            },
+            arts: {
+                name: "Arts & Humanities",
+                icon: "fas fa-palette",
+                degrees: [
+                    {
+                        name: "B.A English Literature",
+                        icon: "fas fa-book",
+                        duration: "3 years",
+                        careers: "Content Writer, Editor",
+                        rationale: "Your creative expression and communication skills make literature and writing excellent career paths."
+                    },
+                    {
+                        name: "B.A Psychology",
+                        icon: "fas fa-brain",
+                        duration: "3 years",
+                        careers: "Counselor, HR Specialist",
+                        rationale: "Your empathy and understanding of human behavior align perfectly with psychology and counseling careers."
+                    }
+                ],
+                rationale: "Your creativity, empathy, and communication skills make you well-suited for arts and humanities fields."
+            }
+        };
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let quizStarted = false;
+
+        // DOM elements
+        const quizIntro = document.getElementById('quiz-intro');
+        const quizProgress = document.getElementById('quiz-progress');
+        const quizQuestions = document.getElementById('quiz-questions');
+        const quizResults = document.getElementById('quiz-results');
+        const questionContainer = document.getElementById('question-container');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize quiz
+        function initializeQuiz() {
+            // Load saved progress if exists
+            const savedAnswers = localStorage.getItem('quizAnswers');
+            const savedProgress = localStorage.getItem('quizProgress');
+            
+            if (savedAnswers && savedProgress) {
+                answers = JSON.parse(savedAnswers);
+                currentQuestionIndex = parseInt(savedProgress);
+                
+                // Show resume option
+                if (Object.keys(answers).length > 0) {
+                    showResumeOption();
+                }
+            }
+        }
+
+        // Show resume option
+        function showResumeOption() {
+            const resumeDiv = document.createElement('div');
+            resumeDiv.className = 'bg-warning/10 border border-warning/20 rounded-lg p-4 mb-4';
+            resumeDiv.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-warning mr-2"></i>
+                        <span class="text-sm text-text-primary">You have a quiz in progress</span>
+                    </div>
+                    <div class="space-x-2">
+                        <button id="resume-quiz-btn" class="text-warning hover:text-warning/80 text-sm font-medium">Resume</button>
+                        <button id="restart-quiz-btn" class="text-text-secondary hover:text-text-primary text-sm">Start Over</button>
+                    </div>
+                </div>
+            `;
+            
+            document.querySelector('.card').insertBefore(resumeDiv, document.getElementById('start-quiz-btn').parentElement);
+            
+            document.getElementById('resume-quiz-btn').addEventListener('click', () => {
+                startQuiz(true);
+            });
+            
+            document.getElementById('restart-quiz-btn').addEventListener('click', () => {
+                localStorage.removeItem('quizAnswers');
+                localStorage.removeItem('quizProgress');
+                answers = {};
+                currentQuestionIndex = 0;
+                resumeDiv.remove();
+            });
+        }
+
+        // Start quiz
+        function startQuiz(resume = false) {
+            quizStarted = true;
+            quizIntro.classList.add('hidden');
+            quizProgress.classList.remove('hidden');
+            quizQuestions.classList.remove('hidden');
+            
+            if (!resume) {
+                currentQuestionIndex = 0;
+                answers = {};
+            }
+            
+            displayQuestion();
+        }
+
+        // Display current question
+        function displayQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            
+            // Update progress
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            progressPercentage.textContent = Math.round(progress) + '%';
+            progressBar.style.width = progress + '%';
+            
+            // Create question HTML
+            questionContainer.innerHTML = `
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-text-primary mb-6">${question.question}</h3>
+                    <div class="space-y-3">
+                        ${question.options.map((option, index) => `
+                            <label class="block cursor-pointer">
+                                <input type="radio" name="question-${question.id}" value="${index}" class="sr-only" ${answers[question.id] == index ? 'checked' : ''}>
+                                <div class="card hover:shadow-elevation-3 transition-smooth border-2 ${answers[question.id] == index ? 'border-primary bg-primary-50' : 'border-transparent'} answer-option">
+                                    <div class="flex items-center">
+                                        <div class="w-5 h-5 rounded-full border-2 ${answers[question.id] == index ? 'border-primary bg-primary' : 'border-border'} mr-4 flex items-center justify-center">
+                                            ${answers[question.id] == index ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                                        </div>
+                                        <span class="text-text-primary">${option.text}</span>
+                                    </div>
+                                </div>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to options
+            const radioInputs = questionContainer.querySelectorAll('input[type="radio"]');
+            radioInputs.forEach(input => {
+                input.addEventListener('change', handleAnswerSelect);
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = answers[question.id] === undefined;
+            
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.innerHTML = 'Finish <i class="fas fa-check ml-2"></i>';
+            } else {
+                nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right ml-2"></i>';
+            }
+        }
+
+        // Handle answer selection
+        function handleAnswerSelect(event) {
+            const questionId = quizQuestions[currentQuestionIndex].id;
+            const selectedValue = parseInt(event.target.value);
+            
+            answers[questionId] = selectedValue;
+            nextBtn.disabled = false;
+            
+            // Update visual feedback
+            const options = questionContainer.querySelectorAll('.answer-option');
+            options.forEach((option, index) => {
+                if (index === selectedValue) {
+                    option.classList.add('border-primary', 'bg-primary-50');
+                    option.classList.remove('border-transparent');
+                    option.querySelector('.w-5').classList.add('border-primary', 'bg-primary');
+                    option.querySelector('.w-5').classList.remove('border-border');
+                    option.querySelector('.w-5').innerHTML = '<i class="fas fa-check text-white text-xs"></i>';
+                } else {
+                    option.classList.remove('border-primary', 'bg-primary-50');
+                    option.classList.add('border-transparent');
+                    option.querySelector('.w-5').classList.remove('border-primary', 'bg-primary');
+                    option.querySelector('.w-5').classList.add('border-border');
+                    option.querySelector('.w-5').innerHTML = '';
+                }
+            });
+            
+            // Save progress
+            saveProgress();
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('quizAnswers', JSON.stringify(answers));
+            localStorage.setItem('quizProgress', currentQuestionIndex.toString());
+        }
+
+        // Calculate results
+        function calculateResults() {
+            const streamScores = {
+                engineering: 0,
+                science: 0,
+                commerce: 0,
+                arts: 0
+            };
+            
+            // Calculate scores based on answers
+            Object.keys(answers).forEach(questionId => {
+                const questionIndex = parseInt(questionId) - 1;
+                const answerIndex = answers[questionId];
+                const question = quizQuestions[questionIndex];
+                const selectedOption = question.options[answerIndex];
+                
+                Object.keys(selectedOption.streams).forEach(stream => {
+                    streamScores[stream] += selectedOption.streams[stream];
+                });
+            });
+            
+            // Find primary stream (highest score)
+            const sortedStreams = Object.entries(streamScores)
+                .sort(([,a], [,b]) => b - a)
+                .map(([stream, score]) => ({ stream, score }));
+            
+            const primaryStream = sortedStreams[0];
+            const maxPossibleScore = quizQuestions.length * 3; // Maximum score per stream
+            const confidence = Math.round((primaryStream.score / maxPossibleScore) * 100);
+            
+            return {
+                primaryStream: primaryStream.stream,
+                confidence: confidence,
+                allScores: streamScores
+            };
+        }
+
+        // Display results
+        function displayResults() {
+            const results = calculateResults();
+            const streamConfig = streamConfigs[results.primaryStream];
+            
+            quizQuestions.classList.add('hidden');
+            quizProgress.classList.add('hidden');
+            quizResults.classList.remove('hidden');
+            
+            // Update primary stream
+            document.getElementById('primary-stream-icon').className = streamConfig.icon + ' text-primary text-2xl';
+            document.getElementById('primary-stream-name').textContent = streamConfig.name;
+            document.getElementById('primary-confidence').textContent = results.confidence + '% Match';
+            document.getElementById('primary-rationale').textContent = streamConfig.rationale;
+            
+            // Update degree recommendations
+            const degree1 = streamConfig.degrees[0];
+            const degree2 = streamConfig.degrees[1];
+            
+            document.getElementById('degree1-icon').className = degree1.icon + ' text-secondary';
+            document.getElementById('degree1-name').textContent = degree1.name;
+            document.getElementById('degree1-confidence').textContent = (results.confidence - 3) + '% Match';
+            document.getElementById('degree1-rationale').textContent = degree1.rationale;
+            
+            document.getElementById('degree2-icon').className = degree2.icon + ' text-accent';
+            document.getElementById('degree2-name').textContent = degree2.name;
+            document.getElementById('degree2-confidence').textContent = (results.confidence - 7) + '% Match';
+            document.getElementById('degree2-rationale').textContent = degree2.rationale;
+            
+            // Save results to localStorage
+            const quizResults = {
+                primaryStream: results.primaryStream,
+                confidence: results.confidence,
+                degrees: [degree1, degree2],
+                completedAt: new Date().toISOString(),
+                answers: answers
+            };
+            
+            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+        }
+
+        // Event listeners
+        document.getElementById('start-quiz-btn').addEventListener('click', () => startQuiz());
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                // Quiz completed
+                displayResults();
+            }
+        });
+
+        document.getElementById('save-progress-btn').addEventListener('click', () => {
+            saveProgress();
+            // Show feedback
+            const btn = document.getElementById('save-progress-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check mr-1"></i> Saved';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        });
+
+        document.getElementById('save-results-btn').addEventListener('click', () => {
+            // Update user profile with quiz results
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+            const quizResults = JSON.parse(localStorage.getItem('quizResults'));
+            
+            userProfile.quizCompleted = true;
+            userProfile.recommendedStream = quizResults.primaryStream;
+            userProfile.lastQuizDate = new Date().toISOString();
+            
+            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            
+            // Show feedback
+            const btn = document.getElementById('save-results-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check mr-2"></i> Saved to Profile';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        });
+
+        document.getElementById('download-pdf-btn').addEventListener('click', () => {
+            // Simple PDF generation using window.print()
+            const printWindow = window.open('', '_blank');
+            const quizResults = JSON.parse(localStorage.getItem('quizResults'));
+            const streamConfig = streamConfigs[quizResults.primaryStream];
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Quiz Results - CareerGuide</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .result-section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; }
+                        .confidence { color: #2563EB; font-weight: bold; }
+                        .degree { margin: 10px 0; padding: 10px; background: #f9f9f9; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>CareerGuide - Aptitude Assessment Results</h1>
+                        <p>Generated on ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    <div class="result-section">
+                        <h2>Primary Recommendation</h2>
+                        <h3>${streamConfig.name}</h3>
+                        <p class="confidence">${quizResults.confidence}% Match</p>
+                        <p>${streamConfig.rationale}</p>
+                    </div>
+                    <div class="result-section">
+                        <h2>Recommended Degree Programs</h2>
+                        <div class="degree">
+                            <h4>${streamConfig.degrees[0].name}</h4>
+                            <p>${streamConfig.degrees[0].rationale}</p>
+                        </div>
+                        <div class="degree">
+                            <h4>${streamConfig.degrees[1].name}</h4>
+                            <p>${streamConfig.degrees[1].rationale}</p>
+                        </div>
+                    </div>
+                <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.print();
+        });
+
+        document.getElementById('retake-quiz-btn').addEventListener('click', () => {
+            // Clear saved data and restart
+            localStorage.removeItem('quizAnswers');
+            localStorage.removeItem('quizProgress');
+            answers = {};
+            currentQuestionIndex = 0;
+            quizStarted = false;
+            
+            // Reset UI
+            quizResults.classList.add('hidden');
+            quizIntro.classList.remove('hidden');
+        });
+
+        // Question overview functionality
+        document.getElementById('question-overview-btn').addEventListener('click', () => {
+            showQuestionOverview();
+        });
+
+        document.getElementById('close-overview-btn').addEventListener('click', () => {
+            document.getElementById('question-overview-modal').classList.add('hidden');
+        });
+
+        function showQuestionOverview() {
+            const modal = document.getElementById('question-overview-modal');
+            const list = document.getElementById('question-overview-list');
+            
+            list.innerHTML = quizQuestions.map((question, index) => `
+                <div class="flex items-center justify-between p-2 rounded hover:bg-background cursor-pointer question-overview-item" data-index="${index}">
+                    <span class="text-sm text-text-primary">Question ${index + 1}</span>
+                    <div class="flex items-center">
+                        ${answers[question.id] !== undefined ? 
+                            '<i class="fas fa-check text-secondary text-sm"></i>' : 
+                            '<i class="fas fa-circle text-border text-sm"></i>'
+                        }
+                        ${index === currentQuestionIndex ? 
+                            '<i class="fas fa-arrow-left text-primary text-sm ml-2"></i>' : ''
+                        }
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click handlers
+            list.querySelectorAll('.question-overview-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const index = parseInt(item.dataset.index);
+                    currentQuestionIndex = index;
+                    displayQuestion();
+                    modal.classList.add('hidden');
+                });
+            });
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeQuiz();
+        });
+    </script>
+</body>
+</html>

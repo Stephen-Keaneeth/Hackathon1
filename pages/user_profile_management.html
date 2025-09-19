@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile Management - Digital Guidance Platform</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-elevation-2 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">CareerGuide</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="user_profile_management.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+                        <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Quiz</a>
+                        <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Careers</a>
+                        <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Colleges</a>
+                        <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Timeline</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-text-secondary hover:text-text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="home_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="user_profile_management.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="aptitude_assessment_quiz.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Quiz</a>
+                <a href="course_career_mapping.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Careers</a>
+                <a href="college_discovery.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Colleges</a>
+                <a href="timeline_event_manager.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+                        Profile Management
+                    </h2>
+                    <p class="text-text-secondary">
+                        Update your information to get personalized recommendations
+                    </p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button id="backup-profile" class="btn-outline text-sm px-4 py-2">
+                        <i class="fas fa-download mr-2"></i>Backup
+                    </button>
+                    <button id="restore-profile" class="btn-outline text-sm px-4 py-2">
+                        <i class="fas fa-upload mr-2"></i>Restore
+                    </button>
+                    <input type="file" id="restore-file" accept=".json" class="hidden" />
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Profile Form -->
+            <div class="lg:col-span-2">
+                <form id="profile-form" class="space-y-6">
+                    <!-- Basic Information -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Basic Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-text-primary mb-2">
+                                    Full Name <span class="text-accent">*</span>
+                                </label>
+                                <input type="text" id="name" name="name" required class="input-field" placeholder="Enter your full name" />
+                                <div id="name-error" class="text-error text-sm mt-1 hidden"></div>
+                            </div>
+                            <div>
+                                <label for="age" class="block text-sm font-medium text-text-primary mb-2">
+                                    Age <span class="text-accent">*</span>
+                                </label>
+                                <input type="number" id="age" name="age" required min="13" max="30" class="input-field" placeholder="Enter your age" />
+                                <div id="age-error" class="text-error text-sm mt-1 hidden"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <label for="class" class="block text-sm font-medium text-text-primary mb-2">
+                                    Class Level <span class="text-accent">*</span>
+                                </label>
+                                <select id="class" name="class" required class="input-field">
+                                    <option value>Select your class</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                    <option value="graduate">Graduate</option>
+                                    <option value="postgraduate">Post Graduate</option>
+                                </select>
+                                <div id="class-error" class="text-error text-sm mt-1 hidden"></div>
+                            </div>
+                            <div>
+                                <label for="stream" class="block text-sm font-medium text-text-primary mb-2">
+                                    Stream (if applicable)
+                                </label>
+                                <select id="stream" name="stream" class="input-field">
+                                    <option value>Select your stream</option>
+                                    <option value="science">Science</option>
+                                    <option value="commerce">Commerce</option>
+                                    <option value="arts">Arts/Humanities</option>
+                                    <option value="vocational">Vocational</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="languages" class="block text-sm font-medium text-text-primary mb-2">
+                                Preferred Languages
+                            </label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="english" class="mr-2 text-primary" />
+                                    <span class="text-sm">English</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="hindi" class="mr-2 text-primary" />
+                                    <span class="text-sm">Hindi</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="spanish" class="mr-2 text-primary" />
+                                    <span class="text-sm">Spanish</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="french" class="mr-2 text-primary" />
+                                    <span class="text-sm">French</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="german" class="mr-2 text-primary" />
+                                    <span class="text-sm">German</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="languages" value="mandarin" class="mr-2 text-primary" />
+                                    <span class="text-sm">Mandarin</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interests Section -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Interests & Preferences</h3>
+                        <p class="text-text-secondary text-sm mb-4">Select areas that interest you to get better recommendations</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium text-text-primary mb-2">Academic Subjects</h4>
+                                <div id="academic-interests" class="flex flex-wrap gap-2">
+                                    <!-- Academic interest chips will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-text-primary mb-2">Career Fields</h4>
+                                <div id="career-interests" class="flex flex-wrap gap-2">
+                                    <!-- Career interest chips will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-text-primary mb-2">Activities & Hobbies</h4>
+                                <div id="hobby-interests" class="flex flex-wrap gap-2">
+                                    <!-- Hobby interest chips will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Contact Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-text-primary mb-2">
+                                    Email Address
+                                </label>
+                                <input type="email" id="email" name="email" class="input-field" placeholder="your.email@example.com" />
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-text-primary mb-2">
+                                    Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone" class="input-field" placeholder="+1 (555) 123-4567" />
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="location" class="block text-sm font-medium text-text-primary mb-2">
+                                Location (City, State)
+                            </label>
+                            <input type="text" id="location" name="location" class="input-field" placeholder="New York, NY" />
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div id="save-indicator" class="hidden flex items-center text-success text-sm">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                <span>Changes saved automatically</span>
+                            </div>
+                            <div id="saving-indicator" class="hidden flex items-center text-text-secondary text-sm">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                <span>Saving...</span>
+                            </div>
+                        </div>
+                        <div class="space-x-3">
+                            <button type="button" id="reset-form" class="btn-outline">
+                                Reset Form
+                            </button>
+                            <button type="submit" class="btn-primary">
+                                Save Profile
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Profile Status Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="space-y-6">
+                    <!-- Profile Completion -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Profile Completion</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Overall Progress</span>
+                                <span id="completion-percentage" class="text-sm font-medium text-primary">0%</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2">
+                                <div id="completion-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <div id="basic-info-status" class="flex items-center text-sm">
+                                    <i class="fas fa-circle text-border mr-2"></i>
+                                    <span class="text-text-secondary">Basic Information</span>
+                                </div>
+                                <div id="interests-status" class="flex items-center text-sm">
+                                    <i class="fas fa-circle text-border mr-2"></i>
+                                    <span class="text-text-secondary">Interests & Preferences</span>
+                                </div>
+                                <div id="contact-status" class="flex items-center text-sm">
+                                    <i class="fas fa-circle text-border mr-2"></i>
+                                    <span class="text-text-secondary">Contact Information</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendation Accuracy -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Recommendation Accuracy</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Current Accuracy</span>
+                                <span id="accuracy-percentage" class="text-sm font-medium text-secondary">75%</span>
+                            </div>
+                            <div class="w-full bg-border rounded-full h-2">
+                                <div id="accuracy-bar" class="bg-secondary h-2 rounded-full transition-all duration-300" style="width: 75%"></div>
+                            </div>
+                            
+                            <div class="bg-secondary-50 p-3 rounded-lg">
+                                <p class="text-sm text-text-secondary">
+                                    <i class="fas fa-lightbulb text-secondary mr-2"></i>
+                                    Complete your profile and take the aptitude quiz to improve recommendation accuracy.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <a href="aptitude_assessment_quiz.html" class="flex items-center p-3 bg-primary-50 rounded-lg hover:bg-primary-100 transition-smooth">
+                                <div class="bg-primary-100 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-brain text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-text-primary text-sm">Take Aptitude Quiz</h4>
+                                    <p class="text-xs text-text-secondary">Improve recommendations</p>
+                                </div>
+                            </a>
+
+                            <a href="college_discovery.html" class="flex items-center p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-smooth">
+                                <div class="bg-secondary-100 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-university text-secondary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-text-primary text-sm">Explore Colleges</h4>
+                                    <p class="text-xs text-text-secondary">Find your perfect match</p>
+                                </div>
+                            </a>
+
+                            <a href="home_dashboard.html" class="flex items-center p-3 bg-accent-50 rounded-lg hover:bg-accent-100 transition-smooth">
+                                <div class="bg-accent-100 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-home text-accent"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-text-primary text-sm">Back to Dashboard</h4>
+                                    <p class="text-xs text-text-secondary">View recommendations</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Profile Statistics -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Profile Statistics</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Profile Created</span>
+                                <span id="profile-created" class="text-sm font-medium text-text-primary">Sep 13, 2025</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Last Updated</span>
+                                <span id="last-updated" class="text-sm font-medium text-text-primary">Today</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Quiz Completed</span>
+                                <span id="quiz-status" class="text-sm font-medium text-warning">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Interest categories data
+        const interestCategories = {
+            academic: [
+                'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science',
+                'English Literature', 'History', 'Geography', 'Economics', 'Psychology',
+                'Philosophy', 'Political Science', 'Sociology', 'Art & Design'
+            ],
+            career: [
+                'Engineering', 'Medicine', 'Business', 'Teaching', 'Research',
+                'Technology', 'Creative Arts', 'Law', 'Finance', 'Marketing',
+                'Healthcare', 'Social Work', 'Journalism', 'Architecture'
+            ],
+            hobbies: [
+                'Reading', 'Writing', 'Music', 'Sports', 'Photography',
+                'Cooking', 'Travel', 'Gaming', 'Volunteering', 'Dancing',
+                'Painting', 'Coding', 'Gardening', 'Fitness'
+            ]
+        };
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize interest chips
+        function initializeInterestChips() {
+            const academicContainer = document.getElementById('academic-interests');
+            const careerContainer = document.getElementById('career-interests');
+            const hobbyContainer = document.getElementById('hobby-interests');
+
+            // Create chips for each category
+            interestCategories.academic.forEach(interest => {
+                academicContainer.appendChild(createInterestChip(interest, 'academic'));
+            });
+
+            interestCategories.career.forEach(interest => {
+                careerContainer.appendChild(createInterestChip(interest, 'career'));
+            });
+
+            interestCategories.hobbies.forEach(interest => {
+                hobbyContainer.appendChild(createInterestChip(interest, 'hobby'));
+            });
+        }
+
+        // Create interest chip element
+        function createInterestChip(interest, category) {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'interest-chip px-3 py-1 rounded-full text-sm border transition-smooth';
+            chip.textContent = interest;
+            chip.dataset.interest = interest;
+            chip.dataset.category = category;
+
+            // Default styling
+            chip.classList.add('border-border', 'text-text-secondary', 'hover:border-primary', 'hover:text-primary');
+
+            chip.addEventListener('click', function() {
+                toggleInterestChip(this);
+                updateProfileCompletion();
+                saveProfileData();
+            });
+
+            return chip;
+        }
+
+        // Toggle interest chip selection
+        function toggleInterestChip(chip) {
+            if (chip.classList.contains('bg-primary')) {
+                // Deselect
+                chip.classList.remove('bg-primary', 'text-white', 'border-primary');
+                chip.classList.add('border-border', 'text-text-secondary', 'hover:border-primary', 'hover:text-primary');
+            } else {
+                // Select
+                chip.classList.remove('border-border', 'text-text-secondary', 'hover:border-primary', 'hover:text-primary');
+                chip.classList.add('bg-primary', 'text-white', 'border-primary');
+            }
+        }
+
+        // Load profile data from localStorage
+        function loadProfileData() {
+            const profileData = JSON.parse(localStorage.getItem('userProfile')) || {};
+            
+            // Load basic information
+            if (profileData.name) document.getElementById('name').value = profileData.name;
+            if (profileData.age) document.getElementById('age').value = profileData.age;
+            if (profileData.class) document.getElementById('class').value = profileData.class;
+            if (profileData.stream) document.getElementById('stream').value = profileData.stream;
+            if (profileData.email) document.getElementById('email').value = profileData.email;
+            if (profileData.phone) document.getElementById('phone').value = profileData.phone;
+            if (profileData.location) document.getElementById('location').value = profileData.location;
+
+            // Load languages
+            if (profileData.languages) {
+                profileData.languages.forEach(lang => {
+                    const checkbox = document.querySelector(`input[name="languages"][value="${lang}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+
+            // Load interests
+            if (profileData.interests) {
+                profileData.interests.forEach(interest => {
+                    const chip = document.querySelector(`[data-interest="${interest}"]`);
+                    if (chip) {
+                        toggleInterestChip(chip);
+                    }
+                });
+            }
+
+            // Update profile statistics
+            if (profileData.createdDate) {
+                document.getElementById('profile-created').textContent = new Date(profileData.createdDate).toLocaleDateString();
+            }
+            
+            if (profileData.lastUpdated) {
+                document.getElementById('last-updated').textContent = new Date(profileData.lastUpdated).toLocaleDateString();
+            }
+
+            // Check quiz status
+            const quizResults = localStorage.getItem('quizResults');
+            const quizStatusElement = document.getElementById('quiz-status');
+            if (quizResults) {
+                quizStatusElement.textContent = 'Completed';
+                quizStatusElement.className = 'text-sm font-medium text-success';
+            }
+        }
+
+        // Save profile data to localStorage
+        function saveProfileData() {
+            const formData = new FormData(document.getElementById('profile-form'));
+            const profileData = {};
+
+            // Get form data
+            for (let [key, value] of formData.entries()) {
+                if (key === 'languages') {
+                    if (!profileData.languages) profileData.languages = [];
+                    profileData.languages.push(value);
+                } else {
+                    profileData[key] = value;
+                }
+            }
+
+            // Get selected interests
+            const selectedInterests = [];
+            document.querySelectorAll('.interest-chip.bg-primary').forEach(chip => {
+                selectedInterests.push(chip.dataset.interest);
+            });
+            profileData.interests = selectedInterests;
+
+            // Add metadata
+            profileData.lastUpdated = new Date().toISOString();
+            if (!profileData.createdDate) {
+                profileData.createdDate = new Date().toISOString();
+            }
+
+            // Save to localStorage
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+
+            // Show save indicator
+            showSaveIndicator();
+        }
+
+        // Show save indicator
+        function showSaveIndicator() {
+            const saveIndicator = document.getElementById('save-indicator');
+            const savingIndicator = document.getElementById('saving-indicator');
+
+            savingIndicator.classList.remove('hidden');
+            saveIndicator.classList.add('hidden');
+
+            setTimeout(() => {
+                savingIndicator.classList.add('hidden');
+                saveIndicator.classList.remove('hidden');
+
+                setTimeout(() => {
+                    saveIndicator.classList.add('hidden');
+                }, 3000);
+            }, 1000);
+        }
+
+        // Update profile completion status
+        function updateProfileCompletion() {
+            const formData = new FormData(document.getElementById('profile-form'));
+            const requiredFields = ['name', 'age', 'class'];
+            const selectedInterests = document.querySelectorAll('.interest-chip.bg-primary').length;
+            
+            let completedSections = 0;
+            let totalSections = 3;
+
+            // Check basic information
+            let basicInfoComplete = true;
+            requiredFields.forEach(field => {
+                if (!formData.get(field)) {
+                    basicInfoComplete = false;
+                }
+            });
+
+            if (basicInfoComplete) {
+                completedSections++;
+                updateSectionStatus('basic-info-status', true);
+            } else {
+                updateSectionStatus('basic-info-status', false);
+            }
+
+            // Check interests
+            if (selectedInterests >= 3) {
+                completedSections++;
+                updateSectionStatus('interests-status', true);
+            } else {
+                updateSectionStatus('interests-status', false);
+            }
+
+            // Check contact information (optional but counts toward completion)
+            const hasContact = formData.get('email') || formData.get('phone') || formData.get('location');
+            if (hasContact) {
+                completedSections++;
+                updateSectionStatus('contact-status', true);
+            } else {
+                updateSectionStatus('contact-status', false);
+            }
+
+            // Update completion percentage
+            const percentage = Math.round((completedSections / totalSections) * 100);
+            document.getElementById('completion-percentage').textContent = `${percentage}%`;
+            document.getElementById('completion-bar').style.width = `${percentage}%`;
+
+            // Update recommendation accuracy based on completion
+            const accuracyBase = 50;
+            const accuracyBonus = Math.round(percentage * 0.4);
+            const quizBonus = localStorage.getItem('quizResults') ? 20 : 0;
+            const totalAccuracy = Math.min(accuracyBase + accuracyBonus + quizBonus, 100);
+            
+            document.getElementById('accuracy-percentage').textContent = `${totalAccuracy}%`;
+            document.getElementById('accuracy-bar').style.width = `${totalAccuracy}%`;
+        }
+
+        // Update section status indicator
+        function updateSectionStatus(elementId, completed) {
+            const element = document.getElementById(elementId);
+            const icon = element.querySelector('i');
+            const text = element.querySelector('span');
+
+            if (completed) {
+                icon.className = 'fas fa-check-circle text-success mr-2';
+                text.className = 'text-text-primary';
+            } else {
+                icon.className = 'fas fa-circle text-border mr-2';
+                text.className = 'text-text-secondary';
+            }
+        }
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = [
+                { id: 'name', message: 'Name is required' },
+                { id: 'age', message: 'Age is required and must be between 13-30' },
+                { id: 'class', message: 'Class level is required' }
+            ];
+
+            // Clear previous errors
+            document.querySelectorAll('[id$="-error"]').forEach(error => {
+                error.classList.add('hidden');
+            });
+
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const errorElement = document.getElementById(`${field.id}-error`);
+                
+                if (!input.value.trim()) {
+                    errorElement.textContent = field.message;
+                    errorElement.classList.remove('hidden');
+                    input.classList.add('border-error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-error');
+                }
+            });
+
+            // Validate age range
+            const age = parseInt(document.getElementById('age').value);
+            if (age && (age < 13 || age > 30)) {
+                const errorElement = document.getElementById('age-error');
+                errorElement.textContent = 'Age must be between 13 and 30';
+                errorElement.classList.remove('hidden');
+                document.getElementById('age').classList.add('border-error');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Backup profile data
+        function backupProfile() {
+            const profileData = localStorage.getItem('userProfile');
+            const quizResults = localStorage.getItem('quizResults');
+            const favorites = localStorage.getItem('collegeFavorites');
+            const timelineEvents = localStorage.getItem('timelineEvents');
+
+            const backupData = {
+                profile: profileData ? JSON.parse(profileData) : null,
+                quizResults: quizResults ? JSON.parse(quizResults) : null,
+                favorites: favorites ? JSON.parse(favorites) : null,
+                timelineEvents: timelineEvents ? JSON.parse(timelineEvents) : null,
+                backupDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(backupData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `careerguide-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Restore profile data
+        function restoreProfile(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const backupData = JSON.parse(e.target.result);
+                    
+                    if (backupData.profile) {
+                        localStorage.setItem('userProfile', JSON.stringify(backupData.profile));
+                    }
+                    if (backupData.quizResults) {
+                        localStorage.setItem('quizResults', JSON.stringify(backupData.quizResults));
+                    }
+                    if (backupData.favorites) {
+                        localStorage.setItem('collegeFavorites', JSON.stringify(backupData.favorites));
+                    }
+                    if (backupData.timelineEvents) {
+                        localStorage.setItem('timelineEvents', JSON.stringify(backupData.timelineEvents));
+                    }
+
+                    alert('Profile restored successfully! The page will reload to reflect changes.');
+                    location.reload();
+                } catch (error) {
+                    alert('Error restoring profile. Please check the file format.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Event listeners
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                saveProfileData();
+            }
+        });
+
+        // Auto-save on input changes
+        document.getElementById('profile-form').addEventListener('input', function() {
+            setTimeout(() => {
+                saveProfileData();
+                updateProfileCompletion();
+            }, 500);
+        });
+
+        document.getElementById('reset-form').addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset the form? This will clear all unsaved changes.')) {
+                document.getElementById('profile-form').reset();
+                document.querySelectorAll('.interest-chip.bg-primary').forEach(chip => {
+                    toggleInterestChip(chip);
+                });
+                updateProfileCompletion();
+            }
+        });
+
+        document.getElementById('backup-profile').addEventListener('click', backupProfile);
+
+        document.getElementById('restore-profile').addEventListener('click', function() {
+            document.getElementById('restore-file').click();
+        });
+
+        document.getElementById('restore-file').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                restoreProfile(e.target.files[0]);
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeInterestChips();
+            loadProfileData();
+            updateProfileCompletion();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
