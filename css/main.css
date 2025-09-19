@@ -2164,35 +2164,3 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 2rem;
   }
 }
-
-.chatbox {
-  width: 400px;
-  margin: 20px auto;
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.messages {
-  height: 250px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background: #fafafa;
-}
-.user { color: #2b6cb0; margin: 5px 0; }
-.bot { color: #2f855a; margin: 5px 0; }
-.input-area {
-  display: flex;
-  gap: 5px;
-}
-.input-area input {
-  flex: 1;
-  padding: 8px;
-}
-.input-area button {
-  padding: 8px 12px;
-  cursor: pointer;
-}
