@@ -413,9 +413,13 @@
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            renderCourses();
-            initializeChart();
-            setupEventListeners();
+            try {
+                renderCourses();
+                initializeChart();
+                setupEventListeners();
+            } catch (e) {
+                console.error('Error initializing course mapping page:', e);
+            }
         });
 
         // Setup event listeners

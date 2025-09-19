@@ -6,6 +6,7 @@
     <title>User Profile Management - Digital Guidance Platform</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="../js/database.js"></script>
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body class="bg-background min-h-screen">
@@ -445,6 +446,17 @@
         function loadProfileData() {
             const profileData = JSON.parse(localStorage.getItem('userProfile')) || {};
             
+            if (window.dbManager) {
+                profileData = window.dbManager.getData('userProfile') || {};
+            } else {
+                try {
+                    profileData = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                } catch (e) {
+                    console.warn('Error parsing profile data:', e);
+                    profileData = {};
+                }
+            }
+            
             // Load basic information
             if (profileData.name) document.getElementById('name').value = profileData.name;
             if (profileData.age) document.getElementById('age').value = profileData.age;
@@ -482,11 +494,67 @@
             }
 
             // Check quiz status
-            const quizResults = localStorage.getItem('quizResults');
+            let quizResults;
+            if (window.dbManager) {
+                quizResults = window.dbManager.getData('quizResults');
+            } else {
+                try {
+                    quizResults = JSON.parse(localStorage.getItem('quizResults') || 'null');
+                } catch (e) {
+                    quizResults = null;
+                }
+            }
+            
             const quizStatusElement = document.getElementById('quiz-status');
             if (quizResults) {
                 quizStatusElement.textContent = 'Completed';
                 quizStatusElement.className = 'text-sm font-medium text-success';
+            }
+        }
+
+                // Get form data
+                for (let [key, value] of formData.entries()) {
+                    if (key === 'languages') {
+                        if (!profileData.languages) profileData.languages = [];
+                        profileData.languages.push(value);
+                    } else {
+                        profileData[key] = value;
+                    }
+                }
+
+                // Get selected interests
+                const selectedInterests = [];
+                document.querySelectorAll('.interest-chip.bg-primary').forEach(chip => {
+                    selectedInterests.push(chip.dataset.interest);
+                });
+                profileData.interests = selectedInterests;
+
+                // Add metadata
+                profileData.lastUpdated = new Date().toISOString();
+                if (!profileData.createdDate) {
+                    profileData.createdDate = new Date().toISOString();
+                }
+
+                // Save to storage
+                if (window.dbManager) {
+                    const validation = window.dbManager.validateUserProfile(profileData);
+                    if (validation.isValid) {
+                        window.dbManager.saveData('userProfile', profileData);
+                    } else {
+                        console.warn('Profile validation failed:', validation.errors);
+                        // Show validation errors to user
+                        alert('Please fix the following errors:\n' + validation.errors.join('\n'));
+                        return;
+                    }
+                } else {
+                    localStorage.setItem('userProfile', JSON.stringify(profileData));
+                }
+
+                // Show save indicator
+                showSaveIndicator();
+            } catch (e) {
+                console.error('Error saving profile data:', e);
+                alert('Error saving profile data. Please try again.');
             }
         }
 
@@ -657,18 +725,29 @@
 
         // Backup profile data
         function backupProfile() {
-            const profileData = localStorage.getItem('userProfile');
-            const quizResults = localStorage.getItem('quizResults');
-            const favorites = localStorage.getItem('collegeFavorites');
-            const timelineEvents = localStorage.getItem('timelineEvents');
+            let backupData;
+            
+            if (window.dbManager) {
+                backupData = window.dbManager.exportAllData();
+            } else {
+                const profileData = localStorage.getItem('userProfile');
+                const quizResults = localStorage.getItem('quizResults');
+                const favorites = localStorage.getItem('collegeFavorites');
+                const timelineEvents = localStorage.getItem('timelineEvents');
 
-            const backupData = {
-                profile: profileData ? JSON.parse(profileData) : null,
-                quizResults: quizResults ? JSON.parse(quizResults) : null,
-                favorites: favorites ? JSON.parse(favorites) : null,
-                timelineEvents: timelineEvents ? JSON.parse(timelineEvents) : null,
-                backupDate: new Date().toISOString()
-            };
+                backupData = {
+                    userProfile: profileData ? JSON.parse(profileData) : null,
+                    quizResults: quizResults ? JSON.parse(quizResults) : null,
+                    collegeFavorites: favorites ? JSON.parse(favorites) : null,
+                    timelineEvents: timelineEvents ? JSON.parse(timelineEvents) : null,
+                    backupDate: new Date().toISOString()
+                };
+            }
+            
+            if (!backupData) {
+                alert('Error creating backup. Please try again.');
+                return;
+            }
 
             const dataStr = JSON.stringify(backupData, null, 2);
             const dataBlob = new Blob([dataStr], { type: 'application/json' });
@@ -689,22 +768,31 @@
                 try {
                     const backupData = JSON.parse(e.target.result);
                     
-                    if (backupData.profile) {
-                        localStorage.setItem('userProfile', JSON.stringify(backupData.profile));
-                    }
-                    if (backupData.quizResults) {
-                        localStorage.setItem('quizResults', JSON.stringify(backupData.quizResults));
-                    }
-                    if (backupData.favorites) {
-                        localStorage.setItem('collegeFavorites', JSON.stringify(backupData.favorites));
-                    }
-                    if (backupData.timelineEvents) {
-                        localStorage.setItem('timelineEvents', JSON.stringify(backupData.timelineEvents));
+                    if (window.dbManager) {
+                        const success = window.dbManager.importAllData(backupData);
+                        if (!success) {
+                            throw new Error('Failed to import data');
+                        }
+                    } else {
+                        // Legacy restore for direct localStorage
+                        if (backupData.userProfile) {
+                            localStorage.setItem('userProfile', JSON.stringify(backupData.userProfile));
+                        }
+                        if (backupData.quizResults) {
+                            localStorage.setItem('quizResults', JSON.stringify(backupData.quizResults));
+                        }
+                        if (backupData.collegeFavorites) {
+                            localStorage.setItem('collegeFavorites', JSON.stringify(backupData.collegeFavorites));
+                        }
+                        if (backupData.timelineEvents) {
+                            localStorage.setItem('timelineEvents', JSON.stringify(backupData.timelineEvents));
+                        }
                     }
 
                     alert('Profile restored successfully! The page will reload to reflect changes.');
                     location.reload();
                 } catch (error) {
+                    console.error('Restore error:', error);
                     alert('Error restoring profile. Please check the file format.');
                 }
             };

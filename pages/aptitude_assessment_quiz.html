@@ -6,6 +6,7 @@
     <title>Aptitude Assessment Quiz - Digital Guidance Platform</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="../js/database.js"></script>
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body class="bg-background min-h-screen">
@@ -513,17 +514,28 @@
         // Initialize quiz
         function initializeQuiz() {
             // Load saved progress if exists
-            const savedAnswers = localStorage.getItem('quizAnswers');
-            const savedProgress = localStorage.getItem('quizProgress');
+            let savedAnswers, savedProgress;
             
-            if (savedAnswers && savedProgress) {
-                answers = JSON.parse(savedAnswers);
-                currentQuestionIndex = parseInt(savedProgress);
+            if (window.dbManager) {
+                savedAnswers = window.dbManager.getData('quizAnswers');
+                savedProgress = window.dbManager.getData('quizProgress');
+            } else {
+                try {
+                    savedAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+                    savedProgress = parseInt(localStorage.getItem('quizProgress') || '0');
+                } catch (e) {
+                    console.warn('Error loading saved quiz data:', e);
+                    savedAnswers = {};
+                    savedProgress = 0;
+                }
+            }
+            
+            if (savedAnswers && Object.keys(savedAnswers).length > 0) {
+                answers = savedAnswers;
+                currentQuestionIndex = savedProgress || 0;
                 
                 // Show resume option
-                if (Object.keys(answers).length > 0) {
-                    showResumeOption();
-                }
+                showResumeOption();
             }
         }
 
@@ -551,8 +563,13 @@
             });
             
             document.getElementById('restart-quiz-btn').addEventListener('click', () => {
-                localStorage.removeItem('quizAnswers');
-                localStorage.removeItem('quizProgress');
+                if (window.dbManager) {
+                    window.dbManager.removeData('quizAnswers');
+                    window.dbManager.removeData('quizProgress');
+                } else {
+                    localStorage.removeItem('quizAnswers');
+                    localStorage.removeItem('quizProgress');
+                }
                 answers = {};
                 currentQuestionIndex = 0;
                 resumeDiv.remove();
@@ -655,8 +672,13 @@
 
         // Save progress to localStorage
         function saveProgress() {
-            localStorage.setItem('quizAnswers', JSON.stringify(answers));
-            localStorage.setItem('quizProgress', currentQuestionIndex.toString());
+            if (window.dbManager) {
+                window.dbManager.saveData('quizAnswers', answers);
+                window.dbManager.saveData('quizProgress', currentQuestionIndex);
+            } else {
+                localStorage.setItem('quizAnswers', JSON.stringify(answers));
+                localStorage.setItem('quizProgress', currentQuestionIndex.toString());
+            }
         }
 
         // Calculate results
@@ -734,7 +756,18 @@
                 answers: answers
             };
             
-            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+            if (window.dbManager) {
+                const validation = window.dbManager.validateQuizResults(quizResults);
+                if (validation.isValid) {
+                    window.dbManager.saveData('quizResults', quizResults);
+                } else {
+                    console.warn('Quiz results validation failed:', validation.errors);
+                    // Save anyway but log the issues
+                    window.dbManager.saveData('quizResults', quizResults);
+                }
+            } else {
+                localStorage.setItem('quizResults', JSON.stringify(quizResults));
+            }
         }
 
         // Event listeners
@@ -770,14 +803,31 @@
 
         document.getElementById('save-results-btn').addEventListener('click', () => {
             // Update user profile with quiz results
-            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
-            const quizResults = JSON.parse(localStorage.getItem('quizResults'));
+            let userProfile, quizResults;
+            
+            if (window.dbManager) {
+                userProfile = window.dbManager.getData('userProfile') || {};
+                quizResults = window.dbManager.getData('quizResults');
+            } else {
+                try {
+                    userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                    quizResults = JSON.parse(localStorage.getItem('quizResults') || '{}');
+                } catch (e) {
+                    console.error('Error loading profile/quiz data:', e);
+                    userProfile = {};
+                    quizResults = {};
+                }
+            }
             
             userProfile.quizCompleted = true;
-            userProfile.recommendedStream = quizResults.primaryStream;
+            userProfile.recommendedStream = quizResults?.primaryStream;
             userProfile.lastQuizDate = new Date().toISOString();
             
-            localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            if (window.dbManager) {
+                window.dbManager.saveData('userProfile', userProfile);
+            } else {
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            }
             
             // Show feedback
             const btn = document.getElementById('save-results-btn');
@@ -791,7 +841,25 @@
         document.getElementById('download-pdf-btn').addEventListener('click', () => {
             // Simple PDF generation using window.print()
             const printWindow = window.open('', '_blank');
-            const quizResults = JSON.parse(localStorage.getItem('quizResults'));
+            let quizResults;
+            
+            if (window.dbManager) {
+                quizResults = window.dbManager.getData('quizResults');
+            } else {
+                try {
+                    quizResults = JSON.parse(localStorage.getItem('quizResults') || '{}');
+                } catch (e) {
+                    console.error('Error loading quiz results for PDF:', e);
+                    alert('Error generating PDF. Please try again.');
+                    return;
+                }
+            }
+            
+            if (!quizResults || !quizResults.primaryStream) {
+                alert('No quiz results found. Please complete the quiz first.');
+                return;
+            }
+            
             const streamConfig = streamConfigs[quizResults.primaryStream];
             
             printWindow.document.write(`
@@ -840,8 +908,13 @@
 
         document.getElementById('retake-quiz-btn').addEventListener('click', () => {
             // Clear saved data and restart
-            localStorage.removeItem('quizAnswers');
-            localStorage.removeItem('quizProgress');
+            if (window.dbManager) {
+                window.dbManager.removeData('quizAnswers');
+                window.dbManager.removeData('quizProgress');
+            } else {
+                localStorage.removeItem('quizAnswers');
+                localStorage.removeItem('quizProgress');
+            }
             answers = {};
             currentQuestionIndex = 0;
             quizStarted = false;

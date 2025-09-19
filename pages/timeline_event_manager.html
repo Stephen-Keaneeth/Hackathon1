@@ -6,6 +6,7 @@
     <title>Timeline Event Manager - Digital Guidance Platform</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="../js/database.js"></script>
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body class="bg-background min-h-screen">
@@ -290,10 +291,12 @@
             }
 
             loadEvents() {
-                const stored = localStorage.getItem('timelineEvents');
-                if (stored) {
-                    return JSON.parse(stored);
-                }
+                let events;
+                
+                if (window.dbManager) {
+                    events = window.dbManager.getData('timelineEvents');
+                    if (events && Array.isArray(events)) {
+                        return events;
                 
                 // Sample events for demonstration
                 return [
@@ -341,11 +344,18 @@
             }
 
             saveEvents() {
-                localStorage.setItem('timelineEvents', JSON.stringify(this.events));
-            }
-
-            openModal(eventId = null) {
-                this.editingEventId = eventId;
+                if (window.dbManager) {
+                    const success = window.dbManager.saveData('timelineEvents', this.events);
+                    if (!success) {
+                        alert('Error saving events. Please try again.');
+                    }
+                } else {
+                    try {
+                        localStorage.setItem('timelineEvents', JSON.stringify(this.events));
+                    } catch (e) {
+                        console.error('Error saving timeline events:', e);
+                        alert('Error saving events. Please try again.');
+                    }
                 const modal = document.getElementById('event-modal');
                 const title = document.getElementById('modal-title');
                 const saveText = document.getElementById('save-text');
@@ -356,9 +366,19 @@
                     saveText.textContent = 'Update Event';
                     this.populateForm(event);
                 } else {
-                    title.textContent = 'Add New Event';
-                    saveText.textContent = 'Save Event';
-                    this.resetForm();
+                } else {
+                    try {
+                        const stored = localStorage.getItem('timelineEvents');
+                        if (stored) {
+                            events = JSON.parse(stored);
+                            if (Array.isArray(events)) {
+                                return events;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Error parsing timeline events:', e);
+                        localStorage.removeItem('timelineEvents'); // Clear corrupted data
+                    }
                 }
                 
                 modal.classList.remove('hidden');

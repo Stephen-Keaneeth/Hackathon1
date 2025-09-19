@@ -6,6 +6,7 @@
     <title>Home Dashboard - Digital Guidance Platform</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="../js/database.js"></script>
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fdigitalgu1196back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body class="bg-background min-h-screen">
@@ -339,10 +340,171 @@
         function initializeDashboard() {
             // Load user profile from localStorage
             const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {
-                name: 'Alex',
-                class: '12',
-                stream: 'Science'
-            };
+            
+            if (window.dbManager) {
+                userProfile = window.dbManager.getData('userProfile') || {};
+            } else {
+                try {
+                    userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                } catch (e) {
+                    console.warn('Error parsing user profile from localStorage:', e);
+                    userProfile = {};
+                }
+            }
+            
+            // Set default values if not present
+            if (!userProfile.name) userProfile.name = 'Student';
+            if (!userProfile.class) userProfile.class = '12';
+            if (!userProfile.stream) userProfile.stream = 'Science';
+
+            // Update greeting
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'Good Morning';
+            if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
+            else if (hour >= 17) greeting = 'Good Evening';
+
+            document.getElementById('greeting-text').textContent = `${greeting}, ${userProfile.name}! 👋`;
+            document.getElementById('class-level').textContent = `Class ${userProfile.class} Student • ${userProfile.stream} Stream`;
+        }
+
+        // Onboarding tooltips
+        function initializeOnboarding() {
+            let hasSeenOnboarding;
+            
+            if (window.dbManager) {
+                const settings = window.dbManager.getData('appSettings') || {};
+                hasSeenOnboarding = settings.hasSeenOnboarding;
+            } else {
+                hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+            }
+            
+            if (!hasSeenOnboarding) {
+                showOnboardingTooltips();
+            }
+        }
+
+        function showOnboardingTooltips() {
+            const tooltips = [
+                {
+                    title: 'Welcome to CareerGuide!',
+                    text: 'This is your personalized dashboard. Here you can see recommendations based on your profile and quiz results.',
+                    target: 'greeting-text'
+                },
+                {
+                    title: 'Quick Actions',
+                    text: 'Use these buttons to quickly access key features like taking the aptitude quiz or exploring colleges.',
+                    target: 'quick-actions'
+                },
+                {
+                    title: 'Personalized Recommendations',
+                    text: 'These stream recommendations are based on your interests and quiz results. Click to explore career paths.',
+                    target: 'recommendations'
+                }
+            ];
+
+            let currentTooltip = 0;
+            const overlay = document.getElementById('tooltip-overlay');
+            const content = document.getElementById('tooltip-content');
+            const title = document.getElementById('tooltip-title');
+            const text = document.getElementById('tooltip-text');
+
+            function showTooltip(index) {
+                if (index >= tooltips.length) {
+                    overlay.classList.add('hidden');
+                    
+                    // Save onboarding completion
+                    if (window.dbManager) {
+                        const settings = window.dbManager.getData('appSettings') || {};
+                        settings.hasSeenOnboarding = true;
+                        window.dbManager.saveData('appSettings', settings);
+                    } else {
+                        localStorage.setItem('hasSeenOnboarding', 'true');
+                    }
+                    return;
+                }
+
+                const tooltip = tooltips[index];
+                title.textContent = tooltip.title;
+                text.textContent = tooltip.text;
+                overlay.classList.remove('hidden');
+
+                // Position tooltip (simplified positioning)
+                content.style.top = '50%';
+                content.style.left = '50%';
+                content.style.transform = 'translate(-50%, -50%)';
+            }
+
+            document.getElementById('tooltip-next').addEventListener('click', () => {
+                currentTooltip++;
+                showTooltip(currentTooltip);
+            });
+
+            document.getElementById('tooltip-close').addEventListener('click', () => {
+                overlay.classList.add('hidden');
+                if (window.dbManager) {
+                    const settings = window.dbManager.getData('appSettings') || {};
+                    settings.hasSeenOnboarding = true;
+                    window.dbManager.saveData('appSettings', settings);
+                } else {
+                    localStorage.setItem('hasSeenOnboarding', 'true');
+                }
+            });
+
+            document.getElementById('tooltip-skip').addEventListener('click', () => {
+                overlay.classList.add('hidden');
+                if (window.dbManager) {
+                    const settings = window.dbManager.getData('appSettings') || {};
+                    settings.hasSeenOnboarding = true;
+                    window.dbManager.saveData('appSettings', settings);
+                } else {
+                    localStorage.setItem('hasSeenOnboarding', 'true');
+                }
+            });
+
+            showTooltip(0);
+        }
+
+        // Refresh recommendations
+        document.getElementById('refresh-recommendations').addEventListener('click', function() {
+            // Simulate refreshing recommendations
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Refreshing...';
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-sync-alt mr-1"></i> Refresh';
+                // Here you would typically reload recommendations from database
+            }, 1500);
+        });
+
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            initializeOnboarding();
+        });
+
+        // Update time-sensitive content
+        setInterval(() => {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = 'Good Morning';
+            if (hour >= 12 && hour < 17) greeting = 'Good Afternoon';
+            else if (hour >= 17) greeting = 'Good Evening';
+
+            let userProfile;
+            if (window.dbManager) {
+                userProfile = window.dbManager.getData('userProfile') || {};
+            } else {
+                try {
+                    userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                } catch (e) {
+                    userProfile = {};
+                }
+            }
+            
+            if (!userProfile.name) userProfile.name = 'Student';
+
+            document.getElementById('greeting-text').textContent = `${greeting}, ${userProfile.name}! 👋`;
+        }, 60000); // Update every minute
 
             // Update greeting
             const now = new Date();
